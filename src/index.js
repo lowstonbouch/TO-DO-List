@@ -6,12 +6,11 @@ import reducer from './reducers'
 import generateTree from './generateTree'
 import Node from './containers/Node'
 
-const tree = generateTree()
-const store = createStore(reducer, tree)
+const store = createStore(reducer)
 
 render(
   <Provider store={store}>
-    <Node id={0} />
+    <Node />
   </Provider>,
   document.getElementById('root')
 )

@@ -1,72 +1,57 @@
 import React from 'react'
-import { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
+import AddTool from '../components/AddTool'
+import CategorySection from '../components/CategorySection'
 import * as actions from '../actions'
 
-export class Node extends Component {
-  handleIncrementClick = () => {
-    const { increment, id } = this.props
-    increment(id)
-  }
 
-  handleAddChildClick = e => {
-    e.preventDefault()
 
-    const { addChild, createNode, id } = this.props
-    const childId = createNode().nodeId
-    addChild(id, childId)
-  }
+// export class Node extends Component {
 
-  handleRemoveClick = e => {
-    e.preventDefault()
+//   render() {
+//     const { text, parentId, childIds, addChild, createNode, id, addCategory  } = this.props
+//     console.log(this.props);
+//     console.log(state);
+//     return (
+//       <div>
+//         <AddTool addChild={addChild} createNode={createNode} id={id} addCategory={addCategory} />
+//         <CategoryList text={text} parentId={parentId} childIds={childIds} id={id} />
+//       </div>
+//     )
+//   }
+// }
 
-    const { removeChild, deleteNode, parentId, id } = this.props
-    removeChild(parentId, id)
-    deleteNode(id)
-  }
+// function mapStateToProps(state, ownProps) {
+//   return state[ownProps.id]
+// }
 
-  renderChild = childId => {
-    const { id } = this.props
-    return (
-      <li key={childId}>
-        <ConnectedNode id={childId} parentId={id} />
-      </li>
-    )
-  }
+// const ConnectedNode = connect(mapStateToProps, actions)(Node)
+// export default ConnectedNode
 
-  render() {
-    const { counter, parentId, childIds } = this.props
-    return (
-      <div>
-        Counter: {counter}
-        {' '}
-        <button onClick={this.handleIncrementClick}>
-          +
-        </button>
-        {' '}
-        {typeof parentId !== 'undefined' &&
-          <a href="#" onClick={this.handleRemoveClick} // eslint-disable-line jsx-a11y/href-no-hash
-             style={{ color: 'lightgray', textDecoration: 'none' }}>
-            ×
-          </a>
-        }
-        <a href="#" // eslint-disable-line jsx-a11y/href-no-hash
-              onClick={this.handleAddChildClick}
-            >
-              Add child
-            </a>
-        <ul>
-          {childIds.map(this.renderChild)}
-            
-        </ul>
-      </div>
-    )
-  }
+const Node = ({category, actions}) => (
+  <div>
+    <AddTool category={category} actions={actions} />
+    <CategorySection category={category} actions={actions}/>
+  </div>
+
+)
+
+Node.propTypes = {
+  category: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state, ownProps) {
-  return state[ownProps.id]
-}
+const mapStateToProps = state => ({
+  category: state.category
+})
 
-const ConnectedNode = connect(mapStateToProps, actions)(Node)
-export default ConnectedNode
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Node)
