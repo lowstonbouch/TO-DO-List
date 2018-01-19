@@ -2,15 +2,16 @@ import React from 'react'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import App from './containers/App'
 import reducer from './reducers'
-import 'todomvc-app-css/index.css'
+import generateTree from './generateTree'
+import Node from './containers/Node'
 
-const store = createStore(reducer)
+const tree = generateTree()
+const store = createStore(reducer, tree)
 
 render(
   <Provider store={store}>
-    <App />
+    <Node id={0} />
   </Provider>,
   document.getElementById('root')
 )
