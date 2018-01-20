@@ -1,4 +1,4 @@
-import {ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE } from '../actions'
+import {ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE, EDIT_NODE } from '../actions'
 
 const childIds = (state, action) => {
   switch (action.type) {
@@ -40,6 +40,11 @@ const node = (state, action) => {
         ...state,
         childIds: childIds(state.childIds, action)
       }
+    case EDIT_NODE:
+    return{
+      ...state,
+      text: action.text,
+    }
     default:
       return state
   }

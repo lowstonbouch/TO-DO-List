@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-export default class CategoryTextInput extends Component {
+import styled from 'styled-components';
+
+const Fild = styled.input`
+
+`;
+
+
+export default class ChildTextInput extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
     text: PropTypes.string,
@@ -18,11 +25,12 @@ export default class CategoryTextInput extends Component {
 
   handleSubmit = e => {
     const text = e.target.value.trim()
+    
     if (e.which === 13) {
       this.props.onSave(text)
-      if (this.props.newTodo) {
-        this.setState({ text: '' })
-      }
+        this.setState({ text: '',
+        onInput: !this.state.onInput,
+      })
     }
   }
 
@@ -34,12 +42,17 @@ export default class CategoryTextInput extends Component {
     if (!this.props.newTodo) {
       this.props.onSave(e.target.value)
     }
+    this.setState({ text: '',
+        onInput: !this.state.onInput,
+      })
   }
+
 
   render() {
     return (
-        <div>
+        <div >
         {this.state.onInput &&
+            
             <input className={
                 classnames({
                   edit: this.props.editing,
@@ -50,8 +63,10 @@ export default class CategoryTextInput extends Component {
                 autoFocus="true"
                 value={this.state.text}
                 onBlur={this.handleBlur}
+                onSubmit={this.handAdd}
                 onChange={this.handleChange}
-                onKeyDown={this.handleSubmit} />
+                onKeyDown={this.handleSubmit}
+                />
         }
         </div>
     )

@@ -3,6 +3,7 @@ export const DELETE_NODE = 'DELETE_NODE'
 export const ADD_CHILD = 'ADD_CHILD'
 export const REMOVE_CHILD = 'REMOVE_CHILD'
 export const ADD_CATEGORY = 'ADD_CATEGORY'
+export const EDIT_NODE = 'EDIT_NODE'
 
 let nextId = 0
 
@@ -37,3 +38,10 @@ export const removeChild = (nodeId, childId) => ({
   nodeId,
   childId
 })
+
+export const editNode = (nodeId, text) => ({
+  type: EDIT_NODE,
+  nodeId,
+  text
+})
+

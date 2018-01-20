@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { connect } from 'react-redux'
-// import * as actions from '../actions'
 import CategoryTextInput from './CategoryTextInput'
 
 export default class AddTool extends Component {
@@ -21,13 +19,13 @@ export default class AddTool extends Component {
   }
 
   render() {
-    return (
-      <header>
-        <h1>add category</h1>
-        <CategoryTextInput newTodo
-                       onSave={this.handleSave}
-                       placeholder="Name new category?" />
-      </header>
-    )
-  }
+        return (
+            <header>
+              <h1>add category</h1>
+              <CategoryTextInput newTodo
+                             onSave={this.handleSave}
+                             placeholder="Name new category?" />
+            </header>
+          )
+    }
 }

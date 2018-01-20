@@ -18,21 +18,13 @@ export default class CategorySection extends Component {
       mass.push(key);
     }
     return (
-        <div >
-          {/* {mass.map(key =>
-            <CategoryList key={key} text={category[key].text} id={key} actions={actions}/>
-          )} */}
-
+        <div>
           {mass.map(function(key) {
           if(category[key].main){
             return(
               <CategoryList key={key} text={category[key].text} id={key} childIds={category[key].childIds} actions={actions}/>
-            )
-            
-          }
-          
+            )} 
           })}
-      
         </div>
     )
   }
