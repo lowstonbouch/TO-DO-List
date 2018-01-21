@@ -19,6 +19,7 @@ export default class AddTool extends Component {
   }
 
   render() {
+      console.log(this.props);
         return (
             <header>
               <h1>add category</h1>

@@ -4,6 +4,12 @@ export const ADD_CHILD = 'ADD_CHILD'
 export const REMOVE_CHILD = 'REMOVE_CHILD'
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const EDIT_NODE = 'EDIT_NODE'
+export const ADD_TODO = 'ADD_TODO'
+export const DELETE_TODO = 'DELETE_TODO'
+export const EDIT_TODO = 'EDIT_TODO'
+export const COMPLETE_TODO = 'COMPLETE_TODO'
+export const COMPLETE_ALL = 'COMPLETE_ALL'
+export const CLEAR_COMPLETED = 'CLEAR_COMPLETED'
 
 let nextId = 0
 
@@ -44,4 +50,12 @@ export const editNode = (nodeId, text) => ({
   nodeId,
   text
 })
+
+export const addTodo = (nodeId, text) => ({ type: ADD_TODO, nodeId, text })
+export const deleteTodo = (nodeId, id) => ({ type: DELETE_TODO, nodeId, id })
+export const editTodo = (nodeId, id, text) => ({ type: EDIT_TODO, nodeId, id, text })
+export const completeTodo = (nodeId, id) => ({ type: COMPLETE_TODO, nodeId, id })
+export const completeAll = (nodeId) => ({ type: COMPLETE_ALL, nodeId })
+export const clearCompleted = (nodeId) => ({ type: CLEAR_COMPLETED, nodeId })
+
 

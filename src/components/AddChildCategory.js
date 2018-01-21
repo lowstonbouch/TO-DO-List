@@ -14,11 +14,9 @@ export default class AddChildCategory extends Component {
 
   render() {
         return (
-            <div>
               <ChildTextInput
                              onSave={this.handleSave}
                              placeholder="Name new category?" />
-            </div>
           )
     }
 }

@@ -10,6 +10,9 @@ import styled from 'styled-components'
 const Category = styled.div`
 display: flex;
 align-items: center;
+height: 30px;
+border: 1px solid black;
+width: 100%;
 `;
 
 const Element = styled.li`
@@ -72,7 +75,7 @@ export class CategoryList extends Component {
         <ChildTextInput text={text}
                        editing={this.state.editing}
                        onSave={(text) => this.handleSave(id, text)} />
-                       </ul>
+        </ul>
       )
     } else {
       element = (
