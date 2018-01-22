@@ -13,14 +13,6 @@ const childIds = (state, action) => {
   }
 }
 
-let todosState = [
-  {
-    text: 'Use Redux',
-    completed: false,
-    id: 0
-  }
-]
-
 let tree = {
   0: {
     id: 0,
@@ -32,9 +24,6 @@ let tree = {
 }
 
 const todos = (state, action) => {
-  // console.log('her');
-  // console.log(state);
-  // console.log(action);
   switch (action.type) {
     case ADD_TODO:
       return [
@@ -42,7 +31,8 @@ const todos = (state, action) => {
         {
           id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
           completed: false,
-          text: action.text
+          text: action.text,
+          description: ''
         }
       ]
 

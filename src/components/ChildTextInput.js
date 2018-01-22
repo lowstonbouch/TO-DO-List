@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import styled from 'styled-components';
-
-const Fild = styled.input`
-
-`;
 
 
 export default class ChildTextInput extends Component {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import TodoTextInput from './TodoTextInput'
 import styled from 'styled-components'
 
@@ -11,9 +10,7 @@ align-items: center;
 `;
 
 export default class AddTodo extends Component {
-  static propTypes = {
-    addTodo: PropTypes.func.isRequired
-  }
+
 
   handleSave = text => {
     const { actions, idCategory } = this.props

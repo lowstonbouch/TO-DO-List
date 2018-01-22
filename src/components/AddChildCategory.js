@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import ChildTextInput from './ChildTextInput'
 
 export default class AddChildCategory extends Component {

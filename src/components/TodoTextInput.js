@@ -12,6 +12,7 @@ export default class TodoTextInput extends Component {
   }
 
   state = {
+    prevtext: this.props.text,
     text: this.props.text || ''
   }
 

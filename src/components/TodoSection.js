@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
 import TodoFooter from './TodoFooter'
+import EditTodo from './EditTodo'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 import styled from 'styled-components'
 
@@ -21,13 +22,29 @@ const TODO_FILTERS = {
 }
 
 export default class TodoSection extends Component {
-    static propTypes = {
-        category: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired
+  constructor(props){
+    super(props);
+    this.state = {
+        editTodo: false,
+        editTodoId: 0,
+        filter: SHOW_ALL
       }
-    
+      this.editTodoComponent = this.editTodoComponent.bind(this);
+    }
 
-  state = { filter: SHOW_ALL }
+    static propTypes = {
+      category: PropTypes.object.isRequired,
+      actions: PropTypes.object.isRequired
+    }
+     
+    editTodoComponent = (id) => {
+        this.setState(prevState => ({
+          editTodo: !this.state.editTodo,
+          editTodoid: id,
+        }));
+      }
+
+
 
   handleClearCompleted = () => {
     this.props.actions.clearCompleted(0)
@@ -54,7 +71,7 @@ export default class TodoSection extends Component {
   }
 
   render() {
-    const { category, actions, idCategory } = this.props
+    const { category, actions, idCategory, editTodoCategory } = this.props
     const { filter } = this.state
 
     if(!category[idCategory]){
@@ -66,14 +83,21 @@ export default class TodoSection extends Component {
       todo.completed ? count + 1 : count,
       0
     )
-
+    console.log('hesa');
     return (
-      <MainSections>
+      <div>
+        {!this.state.editTodo &&
+          <MainSections>
           {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} />
+            <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} editTodoComponent={this.editTodoComponent} editTodoCategory={editTodoCategory} />
           )}
-        {this.renderFooter(completedCount)}
-      </MainSections>
+          {this.renderFooter(completedCount)} 
+          </MainSections>
+        }
+        {this.state.editTodo &&
+          <EditTodo id={this.state.editTodoId} category={category} idCategory={idCategory}  {...actions} editTodoComponent={this.editTodoComponent} completed={category[idCategory].todos[this.state.editTodoId].completed}  editTodoCategory={editTodoCategory}/>
+        }
+      </div>
     )
   }
 }

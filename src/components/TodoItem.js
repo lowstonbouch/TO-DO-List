@@ -4,6 +4,8 @@ import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
 import styled from 'styled-components'
 
+import Edit from 'react-icons/lib/fa/edit'
+
 const Todo = styled.div `
   display: flex;
   height: 60px;
@@ -18,6 +20,14 @@ const Element = styled.div`
 `;
 
 export default class TodoItem extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      editing: false
+    }
+      this.handleEditTodo = this.handleEditTodo.bind(this);
+    }
+
   static propTypes = {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
@@ -25,12 +35,15 @@ export default class TodoItem extends Component {
     completeTodo: PropTypes.func.isRequired
   }
 
-  state = {
-    editing: false
-  }
+  
 
   handleDoubleClick = () => {
     this.setState({ editing: true })
+  }
+
+  handleEditTodo(id){
+    this.props.editTodoComponent(id);
+    this.props.editTodoCategory();
   }
 
   handleSave = (id, text) => {
@@ -44,8 +57,7 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo, idCategory } = this.props
-    console.log(this.props);
+    const { todo, completeTodo, deleteTodo, idCategory} = this.props;
 
     let element
     if (this.state.editing) {
@@ -64,10 +76,8 @@ export default class TodoItem extends Component {
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>
-          <button 
-                  onClick={() => deleteTodo(idCategory, todo.id)}>
-                  x
-                  </button>
+          <p onClick ={() => this.handleEditTodo(todo.id)}> <Edit /> </p>
+          <button onClick={() => deleteTodo(idCategory, todo.id)}>x</button>       
         </Element>
       )
     }
