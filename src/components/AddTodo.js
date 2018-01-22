@@ -16,10 +16,9 @@ export default class AddTodo extends Component {
   }
 
   handleSave = text => {
-    const { actions } = this.props
-    console.log(actions);
+    const { actions, idCategory } = this.props
     if (text.length !== 0) {
-      actions.addTodo(0,text)
+      actions.addTodo(idCategory,text)
     }
   }
 

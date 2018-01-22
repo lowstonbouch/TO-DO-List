@@ -12,14 +12,12 @@ export default class AddTool extends Component {
   handleSave = text => {
     if (text.length !== 0) {
         const { actions } = this.props
-        console.log(this.props);
         const childId = actions.createNode(text).nodeId
         actions.addCategory(text, childId)
     }
   }
 
   render() {
-      console.log(this.props);
         return (
             <header>
               <h1>add category</h1>

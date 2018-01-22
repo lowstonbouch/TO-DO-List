@@ -47,10 +47,10 @@ export class CategoryList extends Component {
   }
 
   renderChild = childId => {
-    const { id, actions} = this.props
+    const { id, actions, editIdTodo} = this.props
     return (
       <Element key={childId}>
-        <ConnectedNode id={childId} parentId={id} actions={actions}/>
+        <ConnectedNode id={childId} parentId={id} actions={actions} editIdTodo={editIdTodo}/>
       </Element>
     )
   }
@@ -60,13 +60,17 @@ export class CategoryList extends Component {
   }
 
   handleSave = (id, text) => {
-
     this.props.editNode(id, text)
     this.setState({ editing: false })
   }
 
+  handleOpenTodos = () => {
+    console.log(this.props);
+    this.props.editIdTodo(this.props.id);
+  }
+
   render() {
-    const { text, childIds, id, actions } = this.props
+    const { text, childIds, id, actions, editIdTodo } = this.props
 
     let element
     if (this.state.editing) {
@@ -80,7 +84,7 @@ export class CategoryList extends Component {
     } else {
       element = (
         <div>
-        <Category>
+        <Category onClick={this.handleOpenTodos}>
           <p onDoubleClick={this.handleDoubleClick}>
             {text}
             </p>

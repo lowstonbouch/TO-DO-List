@@ -38,11 +38,11 @@ export default class TodoSection extends Component {
   }
 
   renderFooter(completedCount) {
-    const { category } = this.props
+    const { category, idCategory } = this.props
     const { filter } = this.state
-    const activeCount = category[0].todos.length - completedCount
+    const activeCount = category[idCategory].todos.length - completedCount
 
-    if (category[0].todos.length) {
+    if (category[idCategory].todos.length) {
       return (
         <TodoFooter completedCount={completedCount}
                 activeCount={activeCount}
@@ -54,12 +54,15 @@ export default class TodoSection extends Component {
   }
 
   render() {
-    const { category, actions } = this.props
+    const { category, actions, idCategory } = this.props
     const { filter } = this.state
-    console.log(this.props);
 
-    const filteredTodos = category[0].todos.filter(TODO_FILTERS[filter])
-    const completedCount = category[0].todos.reduce((count, todo) =>
+    if(!category[idCategory]){
+      return 0
+    }
+
+    const filteredTodos = category[idCategory].todos.filter(TODO_FILTERS[filter])
+    const completedCount = category[idCategory].todos.reduce((count, todo) =>
       todo.completed ? count + 1 : count,
       0
     )
@@ -67,7 +70,7 @@ export default class TodoSection extends Component {
     return (
       <MainSections>
           {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+            <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} />
           )}
         {this.renderFooter(completedCount)}
       </MainSections>

@@ -34,16 +34,17 @@ export default class TodoItem extends Component {
   }
 
   handleSave = (id, text) => {
+    const { idCategory } = this.props
     if (text.length === 0) {
-      this.props.deleteTodo(0,id)
+      this.props.deleteTodo(idCategory,id)
     } else {
-      this.props.editTodo(0,id, text)
+      this.props.editTodo(idCategory,id, text)
     }
     this.setState({ editing: false })
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { todo, completeTodo, deleteTodo, idCategory } = this.props
     console.log(this.props);
 
     let element
@@ -59,12 +60,12 @@ export default class TodoItem extends Component {
           <input className="toggle"
                  type="checkbox"
                  checked={todo.completed}
-                 onChange={() => completeTodo(0, todo.id)} />
+                 onChange={() => completeTodo(idCategory, todo.id)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>
           <button 
-                  onClick={() => deleteTodo(0, todo.id)}>
+                  onClick={() => deleteTodo(idCategory, todo.id)}>
                   x
                   </button>
         </Element>
