@@ -7,6 +7,12 @@ import ChildTextInput from './ChildTextInput'
 import { addChild } from '../actions';
 import styled from 'styled-components'
 
+import AddChild from 'react-icons/lib/fa/plus-square-o'
+import DeleteCategory from 'react-icons/lib/md/delete'
+import Edit from 'react-icons/lib/fa/edit'
+import OpenChilds from 'react-icons/lib/fa/angle-right'
+import CloseChilds from 'react-icons/lib/fa/angle-down'
+
 const Category = styled.div`
 display: flex;
 align-items: center;
@@ -28,6 +34,7 @@ export class CategoryList extends Component {
     this.state = {
       addChild: false,
       editing: false,
+      renderChild: true,
     }
   }
 
@@ -50,13 +57,19 @@ export class CategoryList extends Component {
     const { id, actions, editIdTodo} = this.props
     return (
       <Element key={childId}>
+       {this.state.renderChild &&
         <ConnectedNode id={childId} parentId={id} actions={actions} editIdTodo={editIdTodo}/>
+       }
       </Element>
     )
   }
 
   handleDoubleClick = () => {
     this.setState({ editing: true })
+  }
+
+  handleRenderChild = () =>{
+    this.setState({ renderChild: !this.state.renderChild })
   }
 
   handleSave = (id, text) => {
@@ -71,7 +84,7 @@ export class CategoryList extends Component {
 
   render() {
     const { text, childIds, id, actions, editIdTodo } = this.props
-
+    console.log(this.props);
     let element
     if (this.state.editing) {
       element = (
@@ -85,23 +98,27 @@ export class CategoryList extends Component {
       element = (
         <div>
         <Category onClick={this.handleOpenTodos}>
-          <p onDoubleClick={this.handleDoubleClick}>
-            {text}
-            </p>
-          <a href="#" onClick={this.handleRemoveClick} // eslint-disable-line jsx-a11y/href-no-hash
-             style={{ color: 'lightgray', textDecoration: 'none' }}>
-            ×
-          </a>
-        <a href="#" onClick={this.handleAddChildClick}>
-              Add child
-        </a>
+        {(childIds.length > 0) &&
+          <p onClick={this.handleRenderChild}>
+          {this.state.renderChild &&
+          <CloseChilds /> 
+          }
+          {!this.state.renderChild &&
+          <OpenChilds />
+          }
+           </p>
+        }
+        <p >{text}</p>
+        <p onClick={this.handleDoubleClick} > <Edit /> </p>
+        <p onClick={this.handleRemoveClick} > <DeleteCategory /> </p>
+        <p onClick={this.handleAddChildClick}> <AddChild /> </p>
         </Category>
         <ul>
-          {this.state.addChild &&
-              <AddChildCategory actions={actions} id={id}/>
-          }
-          { (childIds) && childIds.map(this.renderChild)}
-        </ul>
+        {this.state.addChild &&
+            <AddChildCategory actions={actions} id={id}/>
+        }
+        { (childIds) && childIds.map(this.renderChild)}
+      </ul>
         </div>
       )
     }
