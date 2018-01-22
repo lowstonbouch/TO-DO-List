@@ -11,7 +11,7 @@ export default class CategorySection extends Component {
 
 
   render() {
-    const { category, actions, editIdTodo, buttonEditTodo } = this.props
+    const { category, actions, editTodoText, editIdTodo, buttonEditTodo, editTodoComponent, editTodoCategory, renderEditTodo, idCategory, editTodoId } = this.props;
     let key;
     let mass = [];
     for(key in category){
@@ -22,7 +22,7 @@ export default class CategorySection extends Component {
           {mass.map(function(key) {
           if(category[key].main){
             return(
-              <CategoryList key={key} text={category[key].text} id={key} childIds={category[key].childIds} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} />
+              <CategoryList key={key} text={category[key].text} id={key} editTodoText={editTodoText} childIds={category[key].childIds} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={editTodoId} idCategory={idCategory} />
             )} 
           })}
         </div>

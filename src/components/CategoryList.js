@@ -64,11 +64,11 @@ export class CategoryList extends Component {
   }
 
   renderChild = childId => {
-    const { id, actions, editIdTodo, buttonEditTodo} = this.props
+    const { id, actions, editIdTodo, editTodoText, buttonEditTodo, renderEditTodo, editTodoComponent, editTodoCategory} = this.props
     return (
       <Element key={childId}>
        {this.state.renderChild &&
-        <ConnectedNode id={childId} parentId={id} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo}/>
+        <ConnectedNode id={childId} parentId={id} editTodoText={editTodoText} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={this.props.editTodoId} idCategory={this.props.idCategory}/>
        }
       </Element>
     )
@@ -88,12 +88,27 @@ export class CategoryList extends Component {
   }
 
   handleOpenTodos = () => {
+    if(this.props.renderEditTodo){
+      this.props.editTodoComponent()
+      this.props.editTodoCategory();
+    }
     this.props.editIdTodo(this.props.id);
+    
+    
+  }
+
+  handleEditCategory = () =>{
+    const { actions } = this.props
+    if (this.props.editTodoText.length !== 0) {
+      actions.addTodo(this.props.id,this.props.editTodoText)
+      actions.deleteTodo(this.props.idCategory,this.props.editTodoId)
+    }
+    console.log(this.props);
   }
 
   render() {
     const { text, childIds, id, actions, buttonEditTodo } = this.props
-    console.log(this.props);
+
     let element
     if (this.state.editing) {
       element = (
@@ -127,7 +142,9 @@ export class CategoryList extends Component {
         </Buttons>
         }  
         {buttonEditTodo && 
-          <p> <ChangeCategory /> </p>
+        <Buttons>
+          <p onClick={this.handleEditCategory}> <ChangeCategory /> </p>
+        </Buttons>
         }  
         </Category>
         <ul>

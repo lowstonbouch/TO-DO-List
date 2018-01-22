@@ -35,15 +35,11 @@ export default class TodoItem extends Component {
     completeTodo: PropTypes.func.isRequired
   }
 
-  
-
-  handleDoubleClick = () => {
-    this.setState({ editing: true })
-  }
-
   handleEditTodo(id){
+    // console.log(this.props);
     this.props.editTodoComponent(id);
     this.props.editTodoCategory();
+    this.props.handleAddTodoText(this.props.todo.text);
   }
 
   handleSave = (id, text) => {
@@ -73,7 +69,7 @@ export default class TodoItem extends Component {
                  type="checkbox"
                  checked={todo.completed}
                  onChange={() => completeTodo(idCategory, todo.id)} />
-          <label onDoubleClick={this.handleDoubleClick}>
+          <label>
             {todo.text}
           </label>
           <p onClick ={() => this.handleEditTodo(todo.id)}> <Edit /> </p>

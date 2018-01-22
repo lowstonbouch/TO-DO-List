@@ -23,16 +23,34 @@ export default class Main extends Component {
     constructor(props){
         super(props);
         this.state = {
-            idTodo: 0,
+            idCategory: 0,
+            renderEditTodo: false,
+            editTodoId: 0,
+            editTodoText: '',
             buttonEditTodo: false,
         }
         this.editIdTodo = this.editIdTodo.bind(this);
         this.editTodoCategory = this.editTodoCategory.bind(this);
+        this.editTodoComponent = this.editTodoComponent.bind(this);
+        this.handleAddTodoText = this.handleAddTodoText.bind(this);
+      }
+
+      handleAddTodoText(text){
+        this.setState(prevState => ({
+          editTodoText:text
+        }));
       }
 
       editIdTodo(id) {
         this.setState(prevState => ({
-          idTodo: id,
+          idCategory: id,
+        }));
+      }
+
+      editTodoComponent = (id) => {
+        this.setState(prevState => ({
+          renderEditTodo: !this.state.renderEditTodo,
+          editTodoid: id,
         }));
       }
 
@@ -49,11 +67,11 @@ export default class Main extends Component {
         <MainSections>
         <Category>
           <AddTool category={category} actions={actions} />
-          <CategorySection category={category} actions={actions} editIdTodo={this.editIdTodo} buttonEditTodo={this.state.buttonEditTodo} />
+          <CategorySection category={category} actions={actions} editIdTodo={this.editIdTodo} buttonEditTodo={this.state.buttonEditTodo} editTodoCategory={this.editTodoCategory}  editTodoComponent={this.editTodoComponent} renderEditTodo={this.state.renderEditTodo} editTodoText={this.state.editTodoText} editTodoId={this.state.editTodoId} idCategory={this.state.idCategory}/>
         </Category>
         <Todos>
-          <AddTodo category={category} actions={actions} idCategory={this.state.idTodo} />
-          <TodoSection category={category} actions={actions} idCategory={this.state.idTodo} editTodoCategory={this.editTodoCategory} /> 
+          <AddTodo category={category} actions={actions} idCategory={this.state.idCategory} />
+          <TodoSection category={category} actions={actions} idCategory={this.state.idCategory} handleAddTodoText={this.handleAddTodoText} editTodoCategory={this.editTodoCategory} editTodoComponent={this.editTodoComponent} renderEditTodo={this.state.renderEditTodo} editTodoId={this.state.editTodoId} /> 
         </Todos>
       </MainSections>    
       )

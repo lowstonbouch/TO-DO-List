@@ -62,13 +62,12 @@ export default class EditTodo extends Component {
         this.props.editTodoCategory();
     }
 
-    handleCancel = (idtodo) => {
-        this.props.editTodoComponent(idtodo);
+    handleCancel = (idTodo) => {
+        this.props.editTodoComponent(idTodo);
         this.props.editTodoCategory();
     }
 
     handleChange = () =>{
-        console.log('her');
         this.setState(prevState => ({
             completed: !this.state.completed
           })); 
@@ -76,9 +75,10 @@ export default class EditTodo extends Component {
 
  
     render() {
-        const { id, category, completeTodo, idCategory, completed} = this.props
+        const { id, category, idCategory} = this.props
         return (
             <MainSections>
+                <p> Category: {category[idCategory].text} </p>
                 <ButtonSection>
                     <button onClick={() => this.saveEdit(id)}> Save </button>
                     <button onClick={() => this.handleCancel(id)}> Cancel </button>
