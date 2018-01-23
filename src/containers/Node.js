@@ -6,7 +6,6 @@ import Main from '../components/Main'
 import * as actions from '../actions'
 
 const Node = ({category, actions}) => (
-
       <Main category={category} actions={actions} />
 )
 

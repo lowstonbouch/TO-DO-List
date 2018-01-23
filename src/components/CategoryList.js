@@ -18,24 +18,27 @@ display: flex;
 align-items: center;
 height: 30px;
 border: 1px solid black;
-width: 100%;
-`;
-
-const Element = styled.li`
-display: flex;
-align-items: center;
+width: 99%;
 `;
 
 const Buttons = styled.div`
 display: flex;
 align-items: center;
 justify-content: flex-end;
-width: 65%;
 `;
 
 const BlockCategory = styled.div`
 width: 100%;
 `;
+
+const Element = styled.li`
+list-style-type: none;
+`;
+
+const ListChild = styled.ul`
+margin: 0;
+`;
+
 
 
 export class CategoryList extends Component {
@@ -120,7 +123,7 @@ export class CategoryList extends Component {
       )
     } else {
       element = (
-        <div>
+        <React.Fragment>
         <Category onClick={this.handleOpenTodos}>
         {(childIds.length > 0) &&
           <p onClick={this.handleRenderChild}>
@@ -133,7 +136,6 @@ export class CategoryList extends Component {
            </p>
         }
         <p >{text}</p>
-        
         {!buttonEditTodo && 
         <Buttons>
           <p onClick={this.handleDoubleClick} > <Edit /> </p>
@@ -147,19 +149,19 @@ export class CategoryList extends Component {
         </Buttons>
         }  
         </Category>
-        <ul>
+        <ListChild>
         {this.state.addChild &&
             <AddChildCategory actions={actions} id={id}/>
         }
         { (childIds) && childIds.map(this.renderChild)}
-      </ul>
-        </div>
+        </ListChild>
+        </React.Fragment>
       )
     }
     return (
-      <div>
+      <React.Fragment>
         {element}
-      </div>
+      </React.Fragment>
     )
   }
 }

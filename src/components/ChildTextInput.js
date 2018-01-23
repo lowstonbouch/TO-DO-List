@@ -45,7 +45,7 @@ export default class ChildTextInput extends Component {
 
   render() {
     return (
-        <div >
+        <React.Fragment>
         {this.state.onInput &&
             
             <input className={
@@ -63,7 +63,7 @@ export default class ChildTextInput extends Component {
                 onKeyDown={this.handleSubmit}
                 />
         }
-        </div>
+        </React.Fragment>
     )
   }
 }

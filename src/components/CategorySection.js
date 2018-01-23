@@ -18,14 +18,14 @@ export default class CategorySection extends Component {
       mass.push(key);
     }
     return (
-        <div>
+        <React.Fragment>
           {mass.map(function(key) {
           if(category[key].main){
             return(
               <CategoryList key={key} text={category[key].text} id={key} editTodoText={editTodoText} childIds={category[key].childIds} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={editTodoId} idCategory={idCategory} />
             )} 
           })}
-        </div>
+        </React.Fragment>
     )
   }
 }
