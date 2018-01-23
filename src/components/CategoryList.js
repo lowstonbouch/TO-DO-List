@@ -5,6 +5,7 @@ import * as actions from '../actions'
 import AddChildCategory from './AddChildCategory'
 import ChildTextInput from './ChildTextInput'
 import styled from 'styled-components'
+import Modal from 'react-modal';
 
 import AddChild from 'react-icons/lib/fa/plus-square-o'
 import DeleteCategory from 'react-icons/lib/md/delete'
@@ -12,6 +13,7 @@ import Edit from 'react-icons/lib/fa/edit'
 import OpenChilds from 'react-icons/lib/fa/angle-right'
 import CloseChilds from 'react-icons/lib/fa/angle-down'
 import ChangeCategory from 'react-icons/lib/md/undo'
+import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
 
 const Category = styled.div`
 display: flex;
@@ -43,13 +45,30 @@ margin: 0;
 
 export class CategoryList extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       addChild: false,
       editing: false,
       renderChild: true,
+      modalIsOpen: false,
     }
+
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  afterOpenModal() {
+    // this.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   handleAddChildClick = e => {
@@ -64,15 +83,16 @@ export class CategoryList extends Component {
     const { removeChild, deleteNode, parentId, id } = this.props
     removeChild(parentId, id)
     deleteNode(id)
+    this.setState({ modalIsOpen: false });
   }
 
   renderChild = childId => {
-    const { id, actions, editIdTodo, editTodoText, buttonEditTodo, renderEditTodo, editTodoComponent, editTodoCategory} = this.props
+    const { id, actions, editIdTodo, editTodoText, buttonEditTodo, renderEditTodo, editTodoComponent, editTodoCategory } = this.props
     return (
       <Element key={childId}>
-       {this.state.renderChild &&
-        <ConnectedNode id={childId} parentId={id} editTodoText={editTodoText} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={this.props.editTodoId} idCategory={this.props.idCategory}/>
-       }
+        {this.state.renderChild &&
+          <ConnectedNode id={childId} parentId={id} editTodoText={editTodoText} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={this.props.editTodoId} idCategory={this.props.idCategory} />
+        }
       </Element>
     )
   }
@@ -81,7 +101,7 @@ export class CategoryList extends Component {
     this.setState({ editing: true })
   }
 
-  handleRenderChild = () =>{
+  handleRenderChild = () => {
     this.setState({ renderChild: !this.state.renderChild })
   }
 
@@ -91,20 +111,20 @@ export class CategoryList extends Component {
   }
 
   handleOpenTodos = () => {
-    if(this.props.renderEditTodo){
+    if (this.props.renderEditTodo) {
       this.props.editTodoComponent()
       this.props.editTodoCategory();
     }
     this.props.editIdTodo(this.props.id);
-    
-    
+
+
   }
 
-  handleEditCategory = () =>{
+  handleEditCategory = () => {
     const { actions } = this.props
     if (this.props.editTodoText.length !== 0) {
-      actions.addTodo(this.props.id,this.props.editTodoText)
-      actions.deleteTodo(this.props.idCategory,this.props.editTodoId)
+      actions.addTodo(this.props.id, this.props.editTodoText)
+      actions.deleteTodo(this.props.idCategory, this.props.editTodoId)
     }
     console.log(this.props);
   }
@@ -116,45 +136,56 @@ export class CategoryList extends Component {
     if (this.state.editing) {
       element = (
         <ul>
-        <ChildTextInput text={text}
-                       editing={this.state.editing}
-                       onSave={(text) => this.handleSave(id, text)} />
+          <ChildTextInput text={text}
+            editing={this.state.editing}
+            onSave={(text) => this.handleSave(id, text)} />
         </ul>
       )
     } else {
       element = (
         <React.Fragment>
-        <Category onClick={this.handleOpenTodos}>
-        {(childIds.length > 0) &&
-          <p onClick={this.handleRenderChild}>
-          {this.state.renderChild &&
-          <CloseChilds /> 
-          }
-          {!this.state.renderChild &&
-          <OpenChilds />
-          }
-           </p>
-        }
-        <p >{text}</p>
-        {!buttonEditTodo && 
-        <Buttons>
-          <p onClick={this.handleDoubleClick} > <Edit /> </p>
-          <p onClick={this.handleRemoveClick} > <DeleteCategory /> </p>
-          <p onClick={this.handleAddChildClick}> <AddChild /> </p>
-        </Buttons>
-        }  
-        {buttonEditTodo && 
-        <Buttons>
-          <p onClick={this.handleEditCategory}> <ChangeCategory /> </p>
-        </Buttons>
-        }  
-        </Category>
-        <ListChild>
-        {this.state.addChild &&
-            <AddChildCategory actions={actions} id={id}/>
-        }
-        { (childIds) && childIds.map(this.renderChild)}
-        </ListChild>
+          <Link to={text}>
+          <Category onClick={this.handleOpenTodos}>
+            {(childIds.length > 0) &&
+              <p onClick={this.handleRenderChild}>
+                {this.state.renderChild &&
+                  <CloseChilds />
+                }
+                {!this.state.renderChild &&
+                  <OpenChilds />
+                }
+              </p>
+            }
+            <p >{text}</p>
+            {!buttonEditTodo &&
+              <Buttons>
+                <p onClick={this.handleDoubleClick} > <Edit /> </p>
+                <p onClick={this.openModal} > <DeleteCategory /> </p>
+                <p onClick={this.handleAddChildClick}> <AddChild /> </p>
+              </Buttons>
+            }
+            {buttonEditTodo &&
+              <Buttons>
+                <p onClick={this.handleEditCategory}> <ChangeCategory /> </p>
+              </Buttons>
+            }
+          </Category>
+          </Link>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            contentLabel="Example Modal">
+            <p>A YOU SEREASLY!!??!?!?!?!</p>
+            <button onClick={this.handleRemoveClick}>Yes</button>
+            <button onClick={this.closeModal}>Cancle</button>
+          </Modal>
+          <ListChild>
+            {this.state.addChild &&
+              <AddChildCategory actions={actions} id={id} />
+            }
+            {(childIds) && childIds.map(this.renderChild)}
+          </ListChild>
         </React.Fragment>
       )
     }
