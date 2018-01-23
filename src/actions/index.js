@@ -10,6 +10,8 @@ export const EDIT_TODO = 'EDIT_TODO'
 export const COMPLETE_TODO = 'COMPLETE_TODO'
 export const COMPLETE_ALL = 'COMPLETE_ALL'
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED'
+export const COMPLETE_CATEGORY = 'COMPLETE_CATEGORY'
+export const NO_COMPLETE_CATEGORY = 'NO_COMPLETE_CATEGORY'
 
 let nextId = 0
 
@@ -50,6 +52,19 @@ export const editNode = (nodeId, text) => ({
   nodeId,
   text
 })
+
+export const completeCategory = (nodeId) => ({
+  type: COMPLETE_CATEGORY,
+  nodeId,
+})
+
+export const noCompleteCategory = (nodeId) => ({
+  type: NO_COMPLETE_CATEGORY,
+  nodeId,
+})
+
+
+
 
 export const addTodo = (nodeId, text) => ({ type: ADD_TODO, nodeId, text })
 export const deleteTodo = (nodeId, id) => ({ type: DELETE_TODO, nodeId, id })

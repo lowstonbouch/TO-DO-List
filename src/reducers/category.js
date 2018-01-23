@@ -1,5 +1,5 @@
 import {ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE,
-EDIT_NODE,  ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../actions'
+EDIT_NODE,  ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, CLEAR_COMPLETED, COMPLETE_CATEGORY, NO_COMPLETE_CATEGORY } from '../actions'
 
 import undoable, { includeAction } from 'redux-undo'
 
@@ -19,6 +19,7 @@ let tree = {
   0: {
     id: 0,
     text: 'Use Redux',
+    completed: true,
     childIds: [],
     todos: [],
     main: true,
@@ -57,13 +58,6 @@ const todos = (state, action) => {
           todo
       )
 
-    case COMPLETE_ALL:
-      const areAllMarked = state.every(todo => todo.completed)
-      return state.map(todo => ({
-        ...todo,
-        completed: !areAllMarked
-      }))
-
     case CLEAR_COMPLETED:
       return state.filter(todo => todo.completed === false)
 
@@ -79,6 +73,7 @@ const node = (state, action) => {
       return {
         id: action.nodeId,
         text: action.text,
+        completed: true,
         childIds: [],
         todos: [],
       }
@@ -87,6 +82,16 @@ const node = (state, action) => {
         ...state,
         main: true,
       }
+    case COMPLETE_CATEGORY:
+    return{
+      ...state,
+      completed: true
+    }
+    case NO_COMPLETE_CATEGORY:
+    return{
+      ...state,
+      completed: false
+    }
     case ADD_CHILD:
     case REMOVE_CHILD:
       return {
@@ -121,12 +126,7 @@ const node = (state, action) => {
       ...state,
       todos: todos(state.todos, action),
     }
-
-    case COMPLETE_ALL:
-      return {
-        ...state,
-        todos: todos(state.todos, action),
-    }
+    
     case CLEAR_COMPLETED:
     return {
       ...state,

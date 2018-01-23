@@ -25,9 +25,16 @@ export default class ProgressBar extends Component {
     
     render() {
     const { category, idCategory } = this.props
+    console.log(this.props);
 
     if(!category.present[idCategory]){
       return 0
+    }
+
+    let key;
+    let mass = [];
+    for(key in category.present){
+      mass.push(key);
     }
 
     const completedCount = category.present[idCategory].todos.reduce((count, todo) =>
@@ -35,17 +42,16 @@ export default class ProgressBar extends Component {
       0
     )
 
-    let widthBlock = 100/category.present[idCategory].todos.length;
+    
+
+    let widthBlock = 100/mass.length;
       return (
         <MainSections>
-            {category.present[idCategory].todos.map(todo =>
-            <React.Fragment key ={todo.id}>
-                {todo.completed &&
-                <Progress  style={ { width: `${widthBlock}%`} } />
-                }
-            </React.Fragment>            
-          )}
-            {/* {this.renderProgress(completedCount)}  */}
+           {mass.map(function(key) {
+        if(category.present[key].completed){
+          return(
+            <Progress  style={ { width: `${widthBlock}%`} } />)} 
+        })}
        </MainSections>    
       )
     }

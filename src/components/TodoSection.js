@@ -39,8 +39,6 @@ export default class TodoSection extends Component {
       actions: PropTypes.object.isRequired
     }
 
-
-
   handleClearCompleted = () => {
     this.props.actions.clearCompleted(0)
   }
@@ -50,9 +48,17 @@ export default class TodoSection extends Component {
   }
 
   renderFooter(completedCount) {
-    const { category, idCategory } = this.props
+    const { category, idCategory, actions } = this.props
     const { filter } = this.state
     const activeCount = category.present[idCategory].todos.length - completedCount
+
+    if(activeCount === 0 && !category.present[idCategory].completed){
+      actions.completeCategory(idCategory);
+    }
+
+    if(activeCount !== 0 && category.present[idCategory].completed){
+      actions.noCompleteCategory(idCategory);
+    }
 
     if (category.present[idCategory].todos.length) {
       return (
@@ -60,7 +66,9 @@ export default class TodoSection extends Component {
                 activeCount={activeCount}
                 filter={filter}
                 onClearCompleted={this.handleClearCompleted}
-                onShow={this.handleShow} />
+                onShow={this.handleShow}
+                actions={actions}
+                idCategory={idCategory} />
       )
     }
   }

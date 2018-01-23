@@ -34,8 +34,8 @@ export default class TodoFooter extends Component {
   }
 
   renderTodoCount() {
-    const { activeCount } = this.props
-    const itemWord = activeCount === 1 ? 'item' : 'items'
+    const { activeCount, actions, idCategory } = this.props;
+    const itemWord = activeCount === 1 ? 'item' : 'items';
 
     return (
       <span className="todo-count">
