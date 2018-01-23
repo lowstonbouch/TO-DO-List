@@ -6,6 +6,7 @@ import TodoSection from './TodoSection'
 import Header from './Header'
 import ProgressBar from './ProgressBar'
 import styled from 'styled-components'
+import UndoRedo from '../containers/UndoRedo'
 
 const MainSections = styled.div`
   display: flex;
@@ -75,6 +76,7 @@ export default class Main extends React.Component {
     return (
       <React.Fragment>
         <Header />
+        <UndoRedo />
         <ProgressBar category={category} idCategory={this.state.idCategory} />
         <MainSections>
           <Category>

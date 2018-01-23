@@ -1,6 +1,8 @@
 import {ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE,
 EDIT_NODE,  ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../actions'
 
+import undoable, { includeAction } from 'redux-undo'
+
 const childIds = (state, action) => {
   switch (action.type) {
     case ADD_CHILD:
@@ -147,7 +149,7 @@ const deleteMany = (state, ids) => {
   return state
 }
 
-export default function category (state = tree, action) {
+function category (state = tree, action) {
   const { nodeId } = action
   if (typeof nodeId === 'undefined') {
     return state
@@ -163,3 +165,7 @@ export default function category (state = tree, action) {
     [nodeId]: node(state[nodeId], action)
   }
 }
+
+const undoableTodos = undoable(category)
+
+export default undoableTodos

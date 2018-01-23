@@ -78,18 +78,18 @@ export default class EditTodo extends Component {
         const { id, category, idCategory} = this.props
         return (
             <MainSections>
-                <p> Category: {category[idCategory].text} </p>
+                <p> Category: {category.present[idCategory].text} </p>
                 <ButtonSection>
                     <button onClick={() => this.saveEdit(id)}> Save </button>
                     <button onClick={() => this.handleCancel(id)}> Cancel </button>
                 </ButtonSection>
-                <TodoTextInput text={category[idCategory].todos[id].text} editing={this.state.editing} onSave={(text) => this.handleSave(id, text)} />
+                <TodoTextInput text={category.present[idCategory].todos[id].text} editing={this.state.editing} onSave={(text) => this.handleSave(id, text)} />
                 <span><input className="toggle"
                      type="checkbox"
                      checked={this.state.completed}
                      onChange={this.handleChange} /> Done</span>
                 
-            <TodoTextInput text={category[idCategory].todos[id].descriptions} editing={this.state.editing}  onSave={(text) => this.handleSaveDescription(id, text)} />
+            <TodoTextInput text={category.present[idCategory].todos[id].descriptions} editing={this.state.editing}  onSave={(text) => this.handleSaveDescription(id, text)} />
             </MainSections>
         )
       }

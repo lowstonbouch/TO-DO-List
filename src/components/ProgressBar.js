@@ -20,25 +20,25 @@ export default class ProgressBar extends Component {
 
     renderProgress(completedCount) {
         const { category, idCategory } = this.props
-        const activeCount = category[idCategory].todos.length - completedCount
+        const activeCount = category.present[idCategory].todos.length - completedCount
       }
     
     render() {
     const { category, idCategory } = this.props
 
-    if(!category[idCategory]){
+    if(!category.present[idCategory]){
       return 0
     }
 
-    const completedCount = category[idCategory].todos.reduce((count, todo) =>
+    const completedCount = category.present[idCategory].todos.reduce((count, todo) =>
       todo.completed ? count + 1 : count,
       0
     )
 
-    let widthBlock = 100/category[idCategory].todos.length;
+    let widthBlock = 100/category.present[idCategory].todos.length;
       return (
         <MainSections>
-            {category[idCategory].todos.map(todo =>
+            {category.present[idCategory].todos.map(todo =>
             <React.Fragment key ={todo.id}>
                 {todo.completed &&
                 <Progress  style={ { width: `${widthBlock}%`} } />

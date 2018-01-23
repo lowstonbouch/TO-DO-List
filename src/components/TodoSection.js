@@ -5,6 +5,7 @@ import TodoFooter from './TodoFooter'
 import EditTodo from './EditTodo'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 import styled from 'styled-components'
+import SearchInput, {createFilter} from 'react-search-input'
 
 const MainSections = styled.div `
   display: flex;
@@ -21,13 +22,16 @@ const TODO_FILTERS = {
   [SHOW_COMPLETED]: todo => todo.completed
 }
 
+const KEYS_TO_FILTERS = ['text']
+
 export default class TodoSection extends Component {
   constructor(props){
     super(props);
     this.state = {
-        filter: SHOW_ALL
+        filter: SHOW_ALL,
+        searchTerm: ''
       }
-     
+      this.searchUpdated = this.searchUpdated.bind(this)
     }
 
     static propTypes = {
@@ -48,9 +52,9 @@ export default class TodoSection extends Component {
   renderFooter(completedCount) {
     const { category, idCategory } = this.props
     const { filter } = this.state
-    const activeCount = category[idCategory].todos.length - completedCount
+    const activeCount = category.present[idCategory].todos.length - completedCount
 
-    if (category[idCategory].todos.length) {
+    if (category.present[idCategory].todos.length) {
       return (
         <TodoFooter completedCount={completedCount}
                 activeCount={activeCount}
@@ -61,16 +65,21 @@ export default class TodoSection extends Component {
     }
   }
 
+  searchUpdated (term) {
+    this.setState({searchTerm: term})
+  }
+
   render() {
     const { category, actions, idCategory, editTodoCategory } = this.props
     const { filter } = this.state
 
-    if(!category[idCategory]){
+    if(!category.present[idCategory]){
       return 0
     }
 
-    const filteredTodos = category[idCategory].todos.filter(TODO_FILTERS[filter])
-    const completedCount = category[idCategory].todos.reduce((count, todo) =>
+    const filteredEmails = category.present[idCategory].todos.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+    const filteredTodos = category.present[idCategory].todos.filter(TODO_FILTERS[filter])
+    const completedCount = category.present[idCategory].todos.reduce((count, todo) =>
       todo.completed ? count + 1 : count,
       0
     )
@@ -78,14 +87,20 @@ export default class TodoSection extends Component {
       <div>
         {!this.props.renderEditTodo &&
           <MainSections>
-          {filteredTodos.map(todo =>
+            <SearchInput className="search-input" onChange={this.searchUpdated} />
+          {this.state.searchTerm ?
+            filteredEmails.map(todo =>
             <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} editTodoComponent={this.props.editTodoComponent} editTodoCategory={editTodoCategory} handleAddTodoText={this.props.handleAddTodoText}  />
-          )}
+          ) :
+          filteredTodos.map(todo =>
+            <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} editTodoComponent={this.props.editTodoComponent} editTodoCategory={editTodoCategory} handleAddTodoText={this.props.handleAddTodoText}  />
+          ) 
+        }
           {this.renderFooter(completedCount)} 
           </MainSections>
         }
         {this.props.renderEditTodo &&
-          <EditTodo id={this.props.editTodoId} category={category} idCategory={idCategory}  {...actions} editTodoComponent={this.props.editTodoComponent} completed={category[idCategory].todos[this.props.editTodoId].completed}  editTodoCategory={editTodoCategory}/>
+          <EditTodo id={this.props.editTodoId} category={category} idCategory={idCategory}  {...actions} editTodoComponent={this.props.editTodoComponent} completed={category.present[idCategory].todos[this.props.editTodoId].completed}  editTodoCategory={editTodoCategory}/>
         }
       </div>
     )

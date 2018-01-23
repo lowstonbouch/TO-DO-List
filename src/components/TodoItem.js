@@ -36,7 +36,6 @@ export default class TodoItem extends Component {
   }
 
   handleEditTodo(id){
-    // console.log(this.props);
     this.props.editTodoComponent(id);
     this.props.editTodoCategory();
     this.props.handleAddTodoText(this.props.todo.text);

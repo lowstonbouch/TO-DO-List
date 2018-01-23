@@ -167,7 +167,7 @@ export class CategoryList extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return state.category[ownProps.id]
+  return state.category.present[ownProps.id]
 }
 
 const ConnectedNode = connect(mapStateToProps, actions)(CategoryList)
