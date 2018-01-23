@@ -19,12 +19,9 @@ export default class AddTool extends Component {
 
   render() {
         return (
-            <header>
-              <h1>add category</h1>
               <CategoryTextInput newTodo
                              onSave={this.handleSave}
-                             placeholder="Name new category?" />
-            </header>
+                             placeholder="Enter category tittle" />
           )
     }
 }

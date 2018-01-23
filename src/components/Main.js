@@ -4,6 +4,7 @@ import AddTodo from './AddTodo'
 import CategorySection from './CategorySection'
 import TodoSection from './TodoSection'
 import Header from './Header'
+import ProgressBar from './ProgressBar'
 import styled from 'styled-components'
 
 const MainSections = styled.div`
@@ -74,6 +75,7 @@ export default class Main extends React.Component {
     return (
       <React.Fragment>
         <Header />
+        <ProgressBar category={category} idCategory={this.state.idCategory} />
         <MainSections>
           <Category>
             <AddTool category={category} actions={actions} />

@@ -39,7 +39,7 @@ export default class TodoFooter extends Component {
 
     return (
       <span className="todo-count">
-        <strong>{activeCount || 'No'}</strong> {itemWord} left
+        <strong>{activeCount || 'No'}</strong> {itemWord} no done
       </span>
     )
   }

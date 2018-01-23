@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import styled from 'styled-components';
+
+const Input = styled.input`
+margin: 10px auto;
+    height: 30px;
+    font-size: 19px;
+    width: 85%;
+    border: 1px solid #b1aeae8f;
+`;
 
 export default class CategoryTextInput extends Component {
   static propTypes = {
@@ -38,9 +47,9 @@ export default class CategoryTextInput extends Component {
 
   render() {
     return (
-        <div>
+      <React.Fragment>
         {this.state.onInput &&
-            <input className={
+            <Input className={
                 classnames({
                   edit: this.props.editing,
                   'new-todo': this.props.newTodo
@@ -53,7 +62,7 @@ export default class CategoryTextInput extends Component {
                 onChange={this.handleChange}
                 onKeyDown={this.handleSubmit} />
         }
-        </div>
+        </React.Fragment>
     )
   }
 }
