@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import AddChildCategory from './AddChildCategory'
 import ChildTextInput from './ChildTextInput'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Modal from 'react-modal';
 
 import AddChild from 'react-icons/lib/fa/plus-square-o'
@@ -18,15 +18,70 @@ import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
 const Category = styled.div`
 display: flex;
 align-items: center;
+justify-content: space-between;
 height: 30px;
 border: 1px solid black;
 width: 99%;
+
+> p {
+  margin 0 3px;
+}
+
+> div {
+  display: flex;
+  > p {
+    margin 0 3px;
+  }
+}
+
 `;
+
+const styleLink = {
+    fontSize: '20px',
+    textDecoration: 'none',
+    color: 'black',
+}
+
+const styleModal = {
+  
+  overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+  },
+  content : {
+    width: '300px',
+    height: '100px',
+    margin: '200px auto',
+    border: '1px solid rgb(204, 204, 204)',
+    background: 'rgb(255, 255, 255)',
+    borderRadius: '4px',
+    outline: 'none',
+    padding: '20px',
+  }
+}
 
 const Buttons = styled.div`
 display: flex;
 align-items: center;
 justify-content: flex-end;
+
+> p {
+  margin 0 3px;
+}
+
+${props => props.primary && css`
+display: flex;
+align-items: center;
+justify-content: space-around;
+
+> button {
+  cursor: pointer;
+}
+  `}
 `;
 
 const BlockCategory = styled.div`
@@ -144,8 +199,9 @@ export class CategoryList extends Component {
     } else {
       element = (
         <React.Fragment>
-          <Link to={text}>
+          <Link to={text} style={styleLink}>
           <Category onClick={this.handleOpenTodos}>
+          <div>
             {(childIds.length > 0) &&
               <p onClick={this.handleRenderChild}>
                 {this.state.renderChild &&
@@ -157,9 +213,10 @@ export class CategoryList extends Component {
               </p>
             }
             <p >{text}</p>
+            <p onClick={this.handleDoubleClick} > <Edit /> </p>
+            </div>
             {!buttonEditTodo &&
               <Buttons>
-                <p onClick={this.handleDoubleClick} > <Edit /> </p>
                 <p onClick={this.openModal} > <DeleteCategory /> </p>
                 <p onClick={this.handleAddChildClick}> <AddChild /> </p>
               </Buttons>
@@ -172,13 +229,17 @@ export class CategoryList extends Component {
           </Category>
           </Link>
           <Modal
+            style={styleModal}
             isOpen={this.state.modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
+            ariaHideApp={false}
             contentLabel="Example Modal">
-            <p>A YOU SEREASLY!!??!?!?!?!</p>
+            <p>Are you sure you want to delete the category and everything associated with it?</p>
+            <Buttons primary>
             <button onClick={this.handleRemoveClick}>Yes</button>
             <button onClick={this.closeModal}>Cancle</button>
+            </Buttons>
           </Modal>
           <ListChild>
             {this.state.addChild &&

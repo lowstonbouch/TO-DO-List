@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const MainSections = styled.div `
   width: 100%;
-  background: #d8d6d6;
   height: 70px;
 `;
 
@@ -24,6 +23,7 @@ const Logo = styled.p`
 const Search = styled.input`
 border: none;
 font-size: 20px;
+padding-left: 5%;
 height: 35px;
 background: rgba(255, 255, 255, 0.95);
 box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.36);

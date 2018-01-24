@@ -4,9 +4,9 @@ import styled from 'styled-components'
 
 const Inpute = styled.div`
 display: flex;
-flex-direction: column;
-justify-content: center;
+justify-content: flex-end;
 align-items: center;
+margin: 10px;
 `;
 
 export default class AddTodo extends Component {
@@ -24,7 +24,6 @@ export default class AddTodo extends Component {
   render() {
     return (
       <Inpute>
-        <h1>todos</h1>
         <TodoTextInput newTodo
                        onSave={this.handleSave}
                        placeholder="What needs to be done?" />

@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import styled from 'styled-components'
+
+const Input = styled.input`
+    height: 30px;
+    font-size: 19px;
+    width: 270px
+    border: 1px solid #b1aeae8f;
+`;
 
 export default class TodoTextInput extends Component {
   static propTypes = {
@@ -38,7 +46,7 @@ export default class TodoTextInput extends Component {
 
   render() {
     return (
-      <input className={
+      <Input className={
         classnames({
           edit: this.props.editing,
           'new-todo': this.props.newTodo

@@ -12,7 +12,6 @@ export default class CategorySection extends Component {
 
   render() {
     const { category, actions, editTodoText, editIdTodo, buttonEditTodo, editTodoComponent, editTodoCategory, renderEditTodo, idCategory, editTodoId } = this.props;
-    console.log(this.props);
     let key;
     let mass = [];
     for(key in category.present){

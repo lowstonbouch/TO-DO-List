@@ -9,19 +9,24 @@ import styled from 'styled-components'
 import UndoRedo from '../containers/UndoRedo'
 import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
 
-const MainSections = styled.div`
-  display: flex;
+const Content = styled.div`
   width: 1200px;
   height: 600px;
-  margin: 0 auto;
-  box-shadow: inset 0 -2px 1px rgba(0,0,0,0.36);
+  margin: 10px auto;
+  box-shadow: 2px -1px 12px 1px rgba(0,0,0,0.36);
+`;
+
+const MainSections = styled.div`
+  display: flex;
+  width: 100%;
+  height: 450px;
 `;
 
 const Category = styled.div`
   margin-left: 3%;
   margin-right: 1%;
   width: 20%;
-  box-shadow: inset -1px -2px 1px rgba(0,0,0,0.36);
+  overflow-y: auto;
 `;
 
 const Todos = styled.div`
@@ -76,8 +81,7 @@ export default class Main extends React.Component {
     const { category, actions } = this.props
     return (
       <Router>
-      <React.Fragment>
-        
+      <Content>
           <Header />
           <UndoRedo />
           <ProgressBar category={category} idCategory={this.state.idCategory} />
@@ -92,7 +96,7 @@ export default class Main extends React.Component {
             </Todos>
           </MainSections>
        
-      </React.Fragment>
+      </Content>
       </Router>
     )
   }

@@ -47,18 +47,31 @@ export default class TodoSection extends Component {
     this.setState({ filter })
   }
 
+ 
+ componentDidMount ()  {
+    // const { category, idCategory, actions } = this.props
+    // const completedCount = category.present[idCategory].todos.reduce((count, todo) =>
+    //   todo.completed ? count + 1 : count,
+    //   0
+    // ) 
+    // console.log('aaaaaaaaaaaaaa');
+    // const activeCount = category.present[idCategory].todos.length - completedCount
+
+
+    // if(activeCount === 0 && !category.present[idCategory].completed){
+    //   actions.completeCategory(idCategory);
+    // }
+
+    // if(activeCount !== 0 && category.present[idCategory].completed){
+    //   actions.noCompleteCategory(idCategory);
+    // }
+  }
+
   renderFooter(completedCount) {
     const { category, idCategory, actions } = this.props
     const { filter } = this.state
     const activeCount = category.present[idCategory].todos.length - completedCount
 
-    if(activeCount === 0 && !category.present[idCategory].completed){
-      actions.completeCategory(idCategory);
-    }
-
-    if(activeCount !== 0 && category.present[idCategory].completed){
-      actions.noCompleteCategory(idCategory);
-    }
 
     if (category.present[idCategory].todos.length) {
       return (
@@ -80,7 +93,7 @@ export default class TodoSection extends Component {
   render() {
     const { category, actions, idCategory, editTodoCategory } = this.props
     const { filter } = this.state
-
+    console.log(this.props);
     if(!category.present[idCategory]){
       return 0
     }
@@ -91,6 +104,15 @@ export default class TodoSection extends Component {
       todo.completed ? count + 1 : count,
       0
     )
+    const activeCount = category.present[idCategory].todos.length - completedCount
+
+    if(activeCount === 0 && !category.present[idCategory].completed){
+      actions.completeCategory(idCategory);
+    }
+
+    if(activeCount !== 0 && category.present[idCategory].completed){
+      actions.noCompleteCategory(idCategory);
+    }
     return (
       <div>
         {!this.props.renderEditTodo &&

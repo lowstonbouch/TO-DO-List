@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import Edit from 'react-icons/lib/fa/edit'
 
 const Todo = styled.div `
-  display: flex;
   height: 60px;
   border: 1px solid #ededed;
   width: 100%;
@@ -16,7 +15,14 @@ const Todo = styled.div `
 const Element = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 30px;
+    height: 60px;
+    padding: 0 15px;
+`;
+
+const Check = styled.input`
+margin-right: 20px;
 `;
 
 export default class TodoItem extends Component {
@@ -64,6 +70,7 @@ export default class TodoItem extends Component {
     } else {
       element = (
         <Element>
+          <div>
           <input className="toggle"
                  type="checkbox"
                  checked={todo.completed}
@@ -71,8 +78,10 @@ export default class TodoItem extends Component {
           <label>
             {todo.text}
           </label>
-          <p onClick ={() => this.handleEditTodo(todo.id)}> <Edit /> </p>
-          <button onClick={() => deleteTodo(idCategory, todo.id)}>x</button>       
+          </div>
+          <div>
+          <p onClick ={() => this.handleEditTodo(todo.id)}> <Edit /> </p>   
+          </div>  
         </Element>
       )
     }
