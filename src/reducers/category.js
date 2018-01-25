@@ -16,14 +16,14 @@ const childIds = (state, action) => {
 }
 
 let tree = {
-  0: {
-    id: 0,
-    text: 'Use Redux',
-    completed: true,
-    childIds: [],
-    todos: [],
-    main: true,
-  }
+  // 0: {
+  //   id: 0,
+  //   text: 'Use Redux',
+  //   completed: true,
+  //   childIds: [],
+  //   todos: [],
+  //   main: true,
+  // }
 }
 
 const todos = (state, action) => {
@@ -87,7 +87,7 @@ const node = (state, action) => {
     case COMPLETE_CATEGORY:
     return{
       ...state,
-      completed: true
+      completed: !state.completed,
     }
     case NO_COMPLETE_CATEGORY:
     return{

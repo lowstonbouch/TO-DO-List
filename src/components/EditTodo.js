@@ -10,7 +10,6 @@ width: 100%;
 flex-direction: column;
 justify-content:  center;
 align-items: flex-start;
-margin: 20px;
 
 > textarea {
     width: 100%;

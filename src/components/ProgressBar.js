@@ -17,17 +17,12 @@ const Progress = styled.div`
 
 
 export default class ProgressBar extends Component {
-
-    renderProgress(completedCount) {
-        const { category, idCategory } = this.props
-        const activeCount = category.present[idCategory].todos.length - completedCount
-      }
     
     render() {
     const { category, idCategory } = this.props
 
-    if(!category.present[idCategory]){
-      return 0
+    if(!category.present){
+      return null
     }
 
     let key;

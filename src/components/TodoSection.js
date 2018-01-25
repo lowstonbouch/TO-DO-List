@@ -17,6 +17,16 @@ const MainSections = styled.div `
   position: relative;
 `;
 
+const SectionTodos = styled.div `
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+  height: 390px;
+`;
+
 const styleSearch = {
   position: 'absolute',
     top: '-95px',
@@ -61,22 +71,26 @@ export default class TodoSection extends Component {
     this.setState({ filter })
   }
 
-  componentWillMount(){
-    const { category, actions, idCategory, editTodoCategory } = this.props
-    const completedCount = category.present[idCategory].todos.reduce((count, todo) =>
-      todo.completed ? count + 1 : count,
-      0
-    )
-    const activeCount = category.present[idCategory].todos.length - completedCount
+  // componentWillReceiveProps(nextProps){
+  //   console.log('heer');
+  //   const { category, actions, idCategory, editTodoCategory } = this.props
+  //   const completedCount = category.present[idCategory].todos.reduce((count, todo) =>
+  //     todo.completed ? count + 1 : count,
+  //     0
+  //   )
+  //   const activeCount = category.present[idCategory].todos.length - completedCount
+  //   console.log(activeCount)
 
-    if(activeCount === 0 && !category.present[idCategory].completed){
-      actions.completeCategory(idCategory);
-    }
+  //   if(activeCount === 0 && !category.present[idCategory].completed){
+  //     actions.completeCategory(idCategory);
+  //     console.log('comp');
+  //   }
 
-    if(activeCount !== 0 && category.present[idCategory].completed){
-      actions.noCompleteCategory(idCategory);
-    }
-  }
+  //   if(activeCount !== 0 && category.present[idCategory].completed){
+  //     console.log('no comp');
+  //     actions.completeCategory(idCategory);
+  //   }
+  // }
 
   renderFooter(completedCount) {
     const { category, idCategory, actions } = this.props
@@ -104,9 +118,8 @@ export default class TodoSection extends Component {
   render() {
     const { category, actions, idCategory, editTodoCategory } = this.props
     const { filter } = this.state
-    console.log(this.props);
     if(!category.present[idCategory]){
-      return 0
+      return null
     }
 
     const filteredEmails = category.present[idCategory].todos.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
@@ -131,14 +144,16 @@ export default class TodoSection extends Component {
           <MainSections>
             <AddTodo category={category} actions={actions} idCategory={this.props.idCategory} />
             <SearchInput className="search-input" style={styleSearch} onChange={this.searchUpdated} />
+            <SectionTodos>
           {this.state.searchTerm ?
             filteredEmails.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} editTodoComponent={this.props.editTodoComponent} editTodoCategory={editTodoCategory} handleAddTodoText={this.props.handleAddTodoText}  />
+            <TodoItem key={todo.id} todo={todo} category={category} actions={actions} {...actions} idCategory={idCategory} editTodoComponent={this.props.editTodoComponent} editTodoCategory={editTodoCategory} handleAddTodoText={this.props.handleAddTodoText}  />
           ) :
           filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} idCategory={idCategory} editTodoComponent={this.props.editTodoComponent} editTodoCategory={editTodoCategory} handleAddTodoText={this.props.handleAddTodoText}  />
+            <TodoItem key={todo.id} todo={todo} category={category} actions={actions} {...actions} idCategory={idCategory} editTodoComponent={this.props.editTodoComponent} editTodoCategory={editTodoCategory} handleAddTodoText={this.props.handleAddTodoText}  />
           ) 
         }
+        </SectionTodos>
           {this.renderFooter(completedCount)} 
           </MainSections>
         }
