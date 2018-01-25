@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import TodoTextInput from './TodoTextInput'
 
 import styled from 'styled-components'
+import { ActionCreators } from 'redux-undo';
 
 const MainSections = styled.div `
 display: flex;
@@ -59,12 +60,23 @@ export default class EditTodo extends Component {
     }
 
     saveEdit = (idTodo) =>{
-        const { idCategory, completed, id } = this.props
+        const { idCategory, completed, category, id ,completeCategory} = this.props
         this.props.editTodo(idCategory,idTodo, this.state.text, this.state.completed, this.state.description)
-
-        // if(completed !== this.state.completed){
-        //     this.props.completeTodo(idCategory, id)
-        // }
+        if(completed != this.state.completed){
+            let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
+              tod.completed ? count + 1 : count,
+              0
+            );
+            // category.present[idCategory].todos[id].completed ? completedCount -= 1 : completedCount += 1;
+            const activeCount = category.present[idCategory].todos.length - completedCount;
+            console.log(activeCount);
+            if (activeCount === 0 && !this.state.completed) {
+              completeCategory(idCategory);
+            }
+            if (activeCount !== 0 && this.state.completed) {
+              completeCategory(idCategory);
+            }
+        }
         console.log(this.props.category.present[idCategory].todos[id]);
         this.props.editTodoComponent(idTodo);
         this.props.editTodoCategory();

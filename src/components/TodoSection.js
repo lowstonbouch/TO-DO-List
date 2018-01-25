@@ -90,7 +90,7 @@ export default class TodoSection extends Component {
     this.setState({ searchTerm: term })
   }
 
-  // componentWillUpdate() {
+  // componentWillMount() {
     // const { category, actions, idCategory } = this.props;
     // console.log(this.props);
     // if (!category.present[idCategory] || !category.present[idCategory].todos[this.props.editTodoId]) {
@@ -108,7 +108,7 @@ export default class TodoSection extends Component {
     // if (activeCount !== 0 && category.present[idCategory].completed) {
 
     //   actions.completeCategory(idCategory);
-  //   }
+    // }
   // }
 
   render() {
