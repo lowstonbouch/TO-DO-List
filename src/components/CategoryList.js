@@ -199,8 +199,9 @@ export class CategoryList extends Component {
 
   handleEditCategory = () => {
     const { actions } = this.props
+
     if (this.props.editTodoText.length !== 0) {
-      actions.addTodo(this.props.id, this.props.editTodoText)
+      actions.addTodo(this.props.id, this.props.editTodoText, this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].completed,this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].description)
       actions.deleteTodo(this.props.idCategory, this.props.editTodoId)
     }
   }
@@ -208,8 +209,6 @@ export class CategoryList extends Component {
 
   render() {
     const { text, childIds, id, actions, buttonEditTodo } = this.props
-
-
 
     let element
     if (this.state.editing) {
@@ -221,7 +220,7 @@ export class CategoryList extends Component {
     } else {
       element = (
         <React.Fragment>
-          <Link to={text} style={styleLink}>
+          <Link to={`/${text}`} style={styleLink}>
           <Category onClick={this.handleOpenTodos}>
           <div>
             {(childIds.length > 0) &&

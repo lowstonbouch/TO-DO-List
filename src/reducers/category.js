@@ -16,14 +16,7 @@ const childIds = (state, action) => {
 }
 
 let tree = {
-  // 0: {
-  //   id: 0,
-  //   text: 'Use Redux',
-  //   completed: true,
-  //   childIds: [],
-  //   todos: [],
-  //   main: true,
-  // }
+
 }
 
 const todos = (state, action) => {
@@ -33,9 +26,9 @@ const todos = (state, action) => {
         ...state,
         {
           id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
-          completed: false,
+          completed: action.completed,
           text: action.text,
-          description: 'Description'
+          description: action.description,
         }
       ]
 
@@ -49,6 +42,7 @@ const todos = (state, action) => {
         todo.id === action.id ?
           { ...todo,
              text: action.text,
+             completed: action.completed,
              description: action.description } :
           todo
       )

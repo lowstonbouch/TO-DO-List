@@ -29,7 +29,7 @@ export default class CategorySection extends Component {
           {mass.map(function(key) {
           if(category.present[key].main){
             return(
-              <CategoryList key={key} text={category.present[key].text} id={key} editTodoText={editTodoText} childIds={category.present[key].childIds} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={editTodoId} idCategory={idCategory} />
+              <CategoryList category={category} key={key} text={category.present[key].text} id={key} editTodoText={editTodoText} childIds={category.present[key].childIds} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={editTodoId} idCategory={idCategory} />
             )} 
           })}
         </Section>

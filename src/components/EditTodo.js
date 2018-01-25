@@ -58,20 +58,14 @@ export default class EditTodo extends Component {
           }));      
     }
 
-    handleSaveDescription = (id, text) => {
-        
-    }
-
     saveEdit = (idTodo) =>{
         const { idCategory, completed, id } = this.props
-        if (this.state.text.length === 0) {
-          this.props.deleteTodo(idCategory,idTodo)
-        } else {
-          this.props.editTodo(idCategory,idTodo, this.state.text, this.state.description)
-        }
-        if(completed !== this.state.completed){
-            this.props.completeTodo(idCategory, id)
-        }
+        this.props.editTodo(idCategory,idTodo, this.state.text, this.state.completed, this.state.description)
+
+        // if(completed !== this.state.completed){
+        //     this.props.completeTodo(idCategory, id)
+        // }
+        console.log(this.props.category.present[idCategory].todos[id]);
         this.props.editTodoComponent(idTodo);
         this.props.editTodoCategory();
     }

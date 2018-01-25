@@ -20,6 +20,7 @@ export default class ProgressBar extends Component {
     
     render() {
     const { category, idCategory } = this.props
+    console.log('123');
 
     if(!category.present){
       return null

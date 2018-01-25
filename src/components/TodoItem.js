@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
 import styled from 'styled-components'
+import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
 
 import Edit from 'react-icons/lib/fa/edit'
 
@@ -36,6 +37,11 @@ const Element = styled.div`
     }
 `;
 
+const styleLink = {
+  textDecoration: 'none',
+  color: 'black',
+}
+
 const Check = styled.input`
 margin-right: 20px;
 `;
@@ -56,21 +62,9 @@ export default class TodoItem extends Component {
     completeTodo: PropTypes.func.isRequired
   }
 
-  componentWillMount(){
-    const { todo, completeTodo, category, actions, idCategory } = this.props;
-    let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
-    tod.completed ? count + 1 : count,
-    0
-  );
-  const activeCount = category.present[idCategory].todos.length - completedCount;
-if (activeCount === 0 && !category.present[idCategory].completed) {
-  actions.completeCategory(idCategory);
-}
+//   componentWillMount(){
 
-if (activeCount !== 0 && category.present[idCategory].completed) {
-  actions.completeCategory(idCategory);
-}
-  }
+//   }
 
   handleEditTodo(id) {
     this.props.editTodoComponent(id);
@@ -108,10 +102,11 @@ if (activeCount !== 0 && category.present[idCategory].completed) {
 
 
   render() {
-    const { todo, completeTodo, deleteTodo, idCategory } = this.props;
+    const { todo, category, completeTodo, deleteTodo, idCategory } = this.props;
 
     let element
       element = (
+        
         <Element>
           <div>
             <input className="toggle"
@@ -124,9 +119,12 @@ if (activeCount !== 0 && category.present[idCategory].completed) {
             </p>
           </div>
           <div>
+          <Link to={`/${category.present[idCategory].text}/${todo.text}`} style={styleLink}>
             <span onClick={() => this.handleEditTodo(todo.id)}> <Edit /> </span>
+          </Link>
           </div>
         </Element>
+        
       )
 
     return (
