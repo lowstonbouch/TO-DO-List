@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const Section = styled.div`
 overflow: scroll;
 height: 415px;
-width: 110%;
+width: 121%;
 `;
 
 

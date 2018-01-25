@@ -21,7 +21,7 @@ align-items: center;
 justify-content: space-between;
 height: 30px;
 border: 1px solid black;
-min-width: 150px;
+min-width: 205px;
 
 > p {
   margin 0 3px;

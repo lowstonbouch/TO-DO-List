@@ -9,7 +9,7 @@ import Edit from 'react-icons/lib/fa/edit'
 const Todo = styled.div`
   height: 60px;
   border: 1px solid #ededed;
-  width: 99%;
+  width: 97%;
 `;
 
 const Element = styled.div`
@@ -120,7 +120,7 @@ if (activeCount !== 0 && category.present[idCategory].completed) {
               onChange={() => completeTodo(idCategory, todo.id)}
               onClick={() => this.handleCkick()} />
             <p>
-              {todo.text}
+            {todo.text.length>=45? todo.text.slice(1,45)+'...' : todo.text}
             </p>
           </div>
           <div>

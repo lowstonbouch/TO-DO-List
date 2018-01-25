@@ -6,10 +6,11 @@ import styled from 'styled-components'
 
 const MainSections = styled.div `
 display: flex;
-width: 100%;
+width: 97%;
 flex-direction: column;
 justify-content:  center;
 align-items: flex-start;
+margin-left: 15px;
 
 > textarea {
     width: 100%;
