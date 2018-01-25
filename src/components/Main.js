@@ -38,9 +38,9 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      idCategory: 0,
+      idCategory: undefined,
       renderEditTodo: false,
-      editTodoId: 0,
+      editTodoId: undefined,
       editTodoText: '',
       buttonEditTodo: false,
     }
@@ -51,28 +51,28 @@ export default class Main extends React.Component {
   }
 
   handleAddTodoText(text) {
-    this.setState(prevState => ({
+    this.setState({
       editTodoText: text
-    }));
+    });
   }
 
   editIdTodo(id) {
-    this.setState(prevState => ({
+    this.setState({
       idCategory: id,
-    }));
+    });
   }
 
   editTodoComponent = (id) => {
-    this.setState(prevState => ({
+    this.setState({
       renderEditTodo: !this.state.renderEditTodo,
-      editTodoid: id,
-    }));
+      editTodoId: id,
+    });
   }
 
   editTodoCategory() {
-    this.setState(prevState => ({
+    this.setState({
       buttonEditTodo: !this.state.buttonEditTodo,
-    }));
+    });
   }
 
 

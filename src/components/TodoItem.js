@@ -56,6 +56,23 @@ export default class TodoItem extends Component {
     completeTodo: PropTypes.func.isRequired
   }
 
+  componentWillMount(){
+    const { todo, completeTodo, category, actions, idCategory } = this.props;
+    let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
+    tod.completed ? count + 1 : count,
+    0
+  );
+  // todo.completed ? completedCount -= 1 : completedCount += 1;
+  const activeCount = category.present[idCategory].todos.length - completedCount;
+if (activeCount === 0 && !category.present[idCategory].completed) {
+  actions.completeCategory(idCategory);
+}
+
+if (activeCount !== 0 && category.present[idCategory].completed) {
+  actions.completeCategory(idCategory);
+}
+  }
+
   handleEditTodo(id) {
     this.props.editTodoComponent(id);
     this.props.editTodoCategory();
@@ -71,28 +88,21 @@ export default class TodoItem extends Component {
     }
     this.setState({ editing: false })
   }
+
+
   handleCkick = () =>{
-        console.log(this.props);
         const { todo, completeTodo, category, actions, idCategory } = this.props;
         let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
         tod.completed ? count + 1 : count,
         0
       );
-      console.log(completedCount);
       todo.completed ? completedCount -= 1 : completedCount += 1;
-    console.log(completedCount);
-    const activeCount = category.present[idCategory].todos.length - completedCount;
-    console.log(activeCount);
-
+      const activeCount = category.present[idCategory].todos.length - completedCount;
     if (activeCount === 0 && !category.present[idCategory].completed) {
-      console.log(this.props);
       actions.completeCategory(idCategory);
-      console.log('comp');
     }
 
     if (activeCount !== 0 && category.present[idCategory].completed) {
-      console.log(this.props);
-      console.log('no comp');
       actions.completeCategory(idCategory);
     }
   }

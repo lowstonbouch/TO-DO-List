@@ -16,6 +16,13 @@ margin: 10px;
 &:hover{
     color: black;
 }
+&:visited{
+  color: black;
+}
+`;
+
+const A = styled.a`
+  color: black;
 `;
 
 const FILTER_TITLES = {
@@ -49,24 +56,20 @@ export default class TodoFooter extends Component {
     const { filter: selectedFilter, onShow } = this.props
 
     return (
-      <a className={classnames({ selected: filter === selectedFilter })}
-         style={{ cursor: 'pointer' }}
-         onClick={() => onShow(filter)}>
-        {title}
-      </a>
+      <React.Fragment>
+        {(classnames({ selected: filter === selectedFilter })) ?
+          <A className={classnames({ selected: filter === selectedFilter })}
+          style={{ cursor: 'pointer' }}
+          onClick={() => onShow(filter)}>
+         {title}
+       </A> :
+       <a className={classnames({ selected: filter === selectedFilter })}
+       style={{ cursor: 'pointer' }}
+       onClick={() => onShow(filter)}>
+       {title}
+       </a>}
+      </React.Fragment>
     )
-  }
-
-  renderClearButton() {
-    const { completedCount, onClearCompleted } = this.props
-    if (completedCount > 0) {
-      return (
-        <button className="clear-completed"
-                onClick={onClearCompleted} >
-          Clear completed
-        </button>
-      )
-    }
   }
 
   render() {
@@ -78,7 +81,6 @@ export default class TodoFooter extends Component {
               {this.renderFilterLink(filter)}
             </Element>
           )}
-        {this.renderClearButton()}
       </Tool>
     )
   }
