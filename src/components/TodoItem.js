@@ -62,7 +62,6 @@ export default class TodoItem extends Component {
     tod.completed ? count + 1 : count,
     0
   );
-  // todo.completed ? completedCount -= 1 : completedCount += 1;
   const activeCount = category.present[idCategory].todos.length - completedCount;
 if (activeCount === 0 && !category.present[idCategory].completed) {
   actions.completeCategory(idCategory);
