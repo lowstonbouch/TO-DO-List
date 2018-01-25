@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CategoryList from './CategoryList'
+import styled from 'styled-components'
+
+const Section = styled.div`
+overflow: scroll;
+height: 415px;
+width: 110%;
+`;
 
 
 export default class CategorySection extends Component {
@@ -18,14 +25,14 @@ export default class CategorySection extends Component {
       mass.push(key);
     }
     return (
-        <React.Fragment>
+        <Section>
           {mass.map(function(key) {
           if(category.present[key].main){
             return(
               <CategoryList key={key} text={category.present[key].text} id={key} editTodoText={editTodoText} childIds={category.present[key].childIds} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={editTodoId} idCategory={idCategory} />
             )} 
           })}
-        </React.Fragment>
+        </Section>
     )
   }
 }

@@ -68,7 +68,7 @@ export const noCompleteCategory = (nodeId) => ({
 
 export const addTodo = (nodeId, text) => ({ type: ADD_TODO, nodeId, text })
 export const deleteTodo = (nodeId, id) => ({ type: DELETE_TODO, nodeId, id })
-export const editTodo = (nodeId, id, text) => ({ type: EDIT_TODO, nodeId, id, text })
+export const editTodo = (nodeId, id, text, description) => ({ type: EDIT_TODO, nodeId, id, text,  description })
 export const completeTodo = (nodeId, id) => ({ type: COMPLETE_TODO, nodeId, id })
 export const completeAll = (nodeId) => ({ type: COMPLETE_ALL, nodeId })
 export const clearCompleted = (nodeId) => ({ type: CLEAR_COMPLETED, nodeId })

@@ -35,7 +35,7 @@ const todos = (state, action) => {
           id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
           completed: false,
           text: action.text,
-          description: ''
+          description: 'Description'
         }
       ]
 
@@ -47,7 +47,9 @@ const todos = (state, action) => {
     case EDIT_TODO:
       return state.map(todo =>
         todo.id === action.id ?
-          { ...todo, text: action.text } :
+          { ...todo,
+             text: action.text,
+             description: action.description } :
           todo
       )
 

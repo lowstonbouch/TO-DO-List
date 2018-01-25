@@ -11,22 +11,13 @@ const Header = styled.div `
     height: 70px;
     display flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin 0 auto;
 `;
 
 const Logo = styled.p`
   font-size: 35px;
   margin: 0;
-`;
-
-const Search = styled.input`
-border: none;
-font-size: 20px;
-padding-left: 5%;
-height: 35px;
-background: rgba(255, 255, 255, 0.95);
-box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.36);
 `;
 
 
@@ -37,9 +28,6 @@ export default class Haeder extends Component {
         <MainSections>
             <Header>
                 <Logo> To-DO List </Logo>  
-                <div>
-                  <Search type="text" placeholder="Search" />
-                </div>  
             </Header>
        </MainSections>    
       )

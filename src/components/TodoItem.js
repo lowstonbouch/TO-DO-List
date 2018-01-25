@@ -19,6 +19,21 @@ const Element = styled.div`
     font-size: 30px;
     height: 60px;
     padding: 0 15px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      >p{
+        margin 0 10px;
+
+      }
+      >span{
+        cursor: pointer;
+      }
+      > input{
+        cursor: pointer;
+      }
+    }
 `;
 
 const Check = styled.input`
@@ -75,12 +90,12 @@ export default class TodoItem extends Component {
                  type="checkbox"
                  checked={todo.completed}
                  onChange={() => completeTodo(idCategory, todo.id)} />
-          <label>
+          <p>
             {todo.text}
-          </label>
+          </p>
           </div>
           <div>
-          <p onClick ={() => this.handleEditTodo(todo.id)}> <Edit /> </p>   
+          <span onClick ={() => this.handleEditTodo(todo.id)}> <Edit /> </span>   
           </div>  
         </Element>
       )

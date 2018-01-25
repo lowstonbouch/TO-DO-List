@@ -11,6 +11,16 @@ flex-direction: column;
 justify-content:  center;
 align-items: flex-start;
 margin: 20px;
+
+> textarea {
+    width: 100%;
+    height: 230px;
+}
+
+*{
+    margin-top: 20px;
+}
+
 `;
 
 const ButtonSection = styled.div`
@@ -18,7 +28,10 @@ display: flex;
 width: 100%;
 justify-content:  flex-end;
 align-items: center;
-margin: 20px;
+
+> button {
+    margin: 10px;
+}
 `;
 
 
@@ -29,6 +42,7 @@ export default class EditTodo extends Component {
         this.state = {
             text: '',
             completed: this.props.completed,
+            description: this.props.category.present[this.props.idCategory].todos[this.props.id].description,
         }
       }
 
@@ -45,7 +59,7 @@ export default class EditTodo extends Component {
     }
 
     handleSaveDescription = (id, text) => {
-             
+        
     }
 
     saveEdit = (idTodo) =>{
@@ -53,7 +67,7 @@ export default class EditTodo extends Component {
         if (this.state.text.length === 0) {
           this.props.deleteTodo(idCategory,idTodo)
         } else {
-          this.props.editTodo(idCategory,idTodo, this.state.text)
+          this.props.editTodo(idCategory,idTodo, this.state.text, this.state.description)
         }
         if(completed !== this.state.completed){
             this.props.completeTodo(idCategory, id)
@@ -73,12 +87,15 @@ export default class EditTodo extends Component {
           })); 
     }
 
+    handleDescription = event =>{
+        this.setState({ description: event.target.value })
+    }
+
  
     render() {
         const { id, category, idCategory} = this.props
         return (
             <MainSections>
-                <p> Category: {category.present[idCategory].text} </p>
                 <ButtonSection>
                     <button onClick={() => this.saveEdit(id)}> Save </button>
                     <button onClick={() => this.handleCancel(id)}> Cancel </button>
@@ -88,8 +105,7 @@ export default class EditTodo extends Component {
                      type="checkbox"
                      checked={this.state.completed}
                      onChange={this.handleChange} /> Done</span>
-                
-            <TodoTextInput text={category.present[idCategory].todos[id].descriptions} editing={this.state.editing}  onSave={(text) => this.handleSaveDescription(id, text)} />
+                <textarea value={this.state.description} onChange={this.handleDescription} />
             </MainSections>
         )
       }

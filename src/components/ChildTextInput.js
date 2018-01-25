@@ -34,12 +34,12 @@ export default class ChildTextInput extends Component {
   }
 
   handleBlur = e => {
-    if (!this.props.newTodo) {
-      this.props.onSave(e.target.value)
+    if (true) {
+      this.props.onSave('');
     }
-    this.setState({ text: '',
-        onInput: !this.state.onInput,
-      })
+    // this.setState({ text: '',
+    //     onInput: !this.state.onInput,
+    //   })
   }
 
 

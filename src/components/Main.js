@@ -1,6 +1,6 @@
 import * as React from 'react'
 import AddTool from './AddTool'
-import AddTodo from './AddTodo'
+
 import CategorySection from './CategorySection'
 import TodoSection from './TodoSection'
 import Header from './Header'
@@ -26,7 +26,6 @@ const Category = styled.div`
   margin-left: 3%;
   margin-right: 1%;
   width: 20%;
-  overflow-y: auto;
 `;
 
 const Todos = styled.div`
@@ -91,7 +90,6 @@ export default class Main extends React.Component {
               <CategorySection category={category} actions={actions} editIdTodo={this.editIdTodo} buttonEditTodo={this.state.buttonEditTodo} editTodoCategory={this.editTodoCategory} editTodoComponent={this.editTodoComponent} renderEditTodo={this.state.renderEditTodo} editTodoText={this.state.editTodoText} editTodoId={this.state.editTodoId} idCategory={this.state.idCategory} />
             </Category>
             <Todos>
-              <AddTodo category={category} actions={actions} idCategory={this.state.idCategory} />
               <TodoSection category={category} actions={actions} idCategory={this.state.idCategory} handleAddTodoText={this.handleAddTodoText} editTodoCategory={this.editTodoCategory} editTodoComponent={this.editTodoComponent} renderEditTodo={this.state.renderEditTodo} editTodoId={this.state.editTodoId} />
             </Todos>
           </MainSections>

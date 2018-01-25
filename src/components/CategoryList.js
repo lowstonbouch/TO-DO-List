@@ -21,7 +21,7 @@ align-items: center;
 justify-content: space-between;
 height: 30px;
 border: 1px solid black;
-width: 99%;
+min-width: 150px;
 
 > p {
   margin 0 3px;
@@ -29,6 +29,7 @@ width: 99%;
 
 > div {
   display: flex;
+  align-items: center;
   > p {
     margin 0 3px;
   }
@@ -71,6 +72,10 @@ justify-content: flex-end;
 
 > p {
   margin 0 3px;
+  $hover:{
+    width: 120%;
+    height: 120%;
+  }
 }
 
 ${props => props.primary && css`
@@ -110,27 +115,39 @@ export class CategoryList extends Component {
     }
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleStateChild = this.handleStateChild.bind(this);
+  }
+
+  handleStateChild(){
+    this.setState(prevState => ({
+      addChild: false,
+    }));
   }
 
   openModal() {
     this.setState({ modalIsOpen: true });
   }
 
-  afterOpenModal() {
-    // this.subtitle.style.color = '#f00';
-  }
-
   closeModal() {
-    this.setState({ modalIsOpen: false });
+    this.setState(prevState => ({
+      modalIsOpen: false
+    }));
   }
 
   handleAddChildClick = e => {
+    console.log("her");
     e.preventDefault()
-    this.setState({
-      addChild: !this.state.addChild,
-    })
+    this.setState(prevState => ({
+      addChild: true,
+    }));
+  }
+
+  handleDoubleClick = e =>{
+    e.preventDefault()
+    this.setState(prevState => ({
+      editing: true,
+    }));
   }
 
   handleRemoveClick = e => {
@@ -152,17 +169,22 @@ export class CategoryList extends Component {
     )
   }
 
-  handleDoubleClick = () => {
-    this.setState({ editing: true })
-  }
-
   handleRenderChild = () => {
-    this.setState({ renderChild: !this.state.renderChild })
+    this.setState(prevState => ({
+      renderChild: !this.state.renderChild 
+    }));
   }
 
   handleSave = (id, text) => {
-    this.props.editNode(id, text)
-    this.setState({ editing: false })
+    if(text.length !==0){
+      this.props.editNode(id, text)
+      this.setState(prevState => ({
+        editing: false 
+      }));
+    }
+    this.setState(prevState => ({
+      editing: false 
+    }));
   }
 
   handleOpenTodos = () => {
@@ -181,20 +203,20 @@ export class CategoryList extends Component {
       actions.addTodo(this.props.id, this.props.editTodoText)
       actions.deleteTodo(this.props.idCategory, this.props.editTodoId)
     }
-    console.log(this.props);
   }
+
 
   render() {
     const { text, childIds, id, actions, buttonEditTodo } = this.props
 
+
+
     let element
     if (this.state.editing) {
       element = (
-        <ul>
           <ChildTextInput text={text}
             editing={this.state.editing}
             onSave={(text) => this.handleSave(id, text)} />
-        </ul>
       )
     } else {
       element = (
@@ -212,7 +234,7 @@ export class CategoryList extends Component {
                 }
               </p>
             }
-            <p >{text}</p>
+            <p>{text.length>=13? text.slice(1,13)+'...' : text}</p>
             <p onClick={this.handleDoubleClick} > <Edit /> </p>
             </div>
             {!buttonEditTodo &&
@@ -243,7 +265,7 @@ export class CategoryList extends Component {
           </Modal>
           <ListChild>
             {this.state.addChild &&
-              <AddChildCategory actions={actions} id={id} />
+              <AddChildCategory actions={actions} id={id} handleStateChild={this.handleStateChild} />
             }
             {(childIds) && childIds.map(this.renderChild)}
           </ListChild>
