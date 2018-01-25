@@ -67,9 +67,7 @@ export default class EditTodo extends Component {
               tod.completed ? count + 1 : count,
               0
             );
-            // category.present[idCategory].todos[id].completed ? completedCount -= 1 : completedCount += 1;
             const activeCount = category.present[idCategory].todos.length - completedCount;
-            console.log(activeCount);
             if (activeCount === 0 && !this.state.completed) {
               completeCategory(idCategory);
             }
@@ -77,7 +75,6 @@ export default class EditTodo extends Component {
               completeCategory(idCategory);
             }
         }
-        console.log(this.props.category.present[idCategory].todos[id]);
         this.props.editTodoComponent(idTodo);
         this.props.editTodoCategory();
     }

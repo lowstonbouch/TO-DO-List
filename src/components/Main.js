@@ -83,7 +83,7 @@ export default class Main extends React.Component {
       <Content>
           <Header />
           <UndoRedo />
-          <ProgressBar category={category} idCategory={this.state.idCategory} />
+          <ProgressBar category={category} />
           <MainSections>
             <Category>
               <AddTool category={category} actions={actions} />

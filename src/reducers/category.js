@@ -15,9 +15,6 @@ const childIds = (state, action) => {
   }
 }
 
-let tree = {
-
-}
 
 const todos = (state, action) => {
   switch (action.type) {
@@ -145,7 +142,7 @@ const deleteMany = (state, ids) => {
   return state
 }
 
-function category (state = tree, action) {
+const category = (state = {}, action) => {
   const { nodeId } = action
   if (typeof nodeId === 'undefined') {
     return state

@@ -136,8 +136,8 @@ export class CategoryList extends Component {
   }
 
   handleAddChildClick = e => {
-    console.log("her");
-    e.preventDefault()
+
+    e.preventDefault();
     this.setState(prevState => ({
       addChild: true,
     }));
@@ -159,11 +159,11 @@ export class CategoryList extends Component {
   }
 
   renderChild = childId => {
-    const { id, actions, editIdTodo, editTodoText, buttonEditTodo, renderEditTodo, editTodoComponent, editTodoCategory } = this.props
+    const { id, category, actions, editIdTodo, editTodoText, buttonEditTodo, renderEditTodo, editTodoComponent, editTodoCategory } = this.props
     return (
       <Element key={childId}>
         {this.state.renderChild &&
-          <ConnectedNode id={childId} parentId={id} editTodoText={editTodoText} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={this.props.editTodoId} idCategory={this.props.idCategory} />
+          <ConnectedNode id={childId} category={category} parentId={id} editTodoText={editTodoText} actions={actions} editIdTodo={editIdTodo} buttonEditTodo={buttonEditTodo} editTodoComponent={editTodoComponent} editTodoCategory={editTodoCategory} renderEditTodo={renderEditTodo} editTodoId={this.props.editTodoId} idCategory={this.props.idCategory} />
         }
       </Element>
     )
@@ -199,6 +199,7 @@ export class CategoryList extends Component {
 
   handleEditCategory = () => {
     const { actions } = this.props
+    console.log(this.props);
 
     if (this.props.editTodoText.length !== 0) {
       actions.addTodo(this.props.id, this.props.editTodoText, this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].completed,this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].description)
