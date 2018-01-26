@@ -1,13 +1,15 @@
-import {ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE,
-EDIT_NODE,  ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, CLEAR_COMPLETED, COMPLETE_CATEGORY, NO_COMPLETE_CATEGORY } from '../actions'
+import {
+  ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE,
+  EDIT_NODE, ADD_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_CATEGORY
+} from '../actions'
 
 import undoable from 'redux-undo'
 
 const childIds = (state, action) => {
   switch (action.type) {
     case ADD_CHILD:
-      return [ ...state, 
-        action.childId ]
+      return [...state,
+      action.childId]
     case REMOVE_CHILD:
       return state.filter(id => id !== action.childId)
     default:
@@ -29,18 +31,15 @@ const todos = (state, action) => {
         }
       ]
 
-    case DELETE_TODO:
-      return state.filter(todo =>
-        todo.id !== action.id
-      )
-
     case EDIT_TODO:
       return state.map(todo =>
         todo.id === action.id ?
-          { ...todo,
-             text: action.text,
-             completed: action.completed,
-             description: action.description } :
+          {
+            ...todo,
+            text: action.text,
+            completed: action.completed,
+            description: action.description
+          } :
           todo
       )
 
@@ -50,9 +49,6 @@ const todos = (state, action) => {
           { ...todo, completed: !todo.completed } :
           todo
       )
-
-    case CLEAR_COMPLETED:
-      return state.filter(todo => todo.completed === false)
 
     default:
       return state
@@ -71,60 +67,41 @@ const node = (state, action) => {
         todos: [],
       }
     case ADD_CATEGORY:
-      return{
+      return {
         ...state,
         main: true,
       }
     case COMPLETE_CATEGORY:
-    return{
-      ...state,
-      completed: !state.completed,
-    }
-    case NO_COMPLETE_CATEGORY:
-    return{
-      ...state,
-      completed: false
-    }
-    case ADD_CHILD:
+      return {
+        ...state,
+        completed: !state.completed,
+      }
     case REMOVE_CHILD:
       return {
         ...state,
         childIds: childIds(state.childIds, action)
       }
     case EDIT_NODE:
-    return{
-      ...state,
-      text: action.text,
-    }
-    case ADD_TODO:
-      return{
+      return {
         ...state,
-        todos: todos(state.todos, action),
-      } 
-
-    case DELETE_TODO:
+        text: action.text,
+      }
+    case ADD_TODO:
       return {
         ...state,
         todos: todos(state.todos, action),
-      } 
-
+      }
     case EDIT_TODO:
-    return {
-      ...state,
-      todos: todos(state.todos, action),
-    }
+      return {
+        ...state,
+        todos: todos(state.todos, action),
+      }
 
     case COMPLETE_TODO:
-    return {
-      ...state,
-      todos: todos(state.todos, action),
-    }
-    
-    case CLEAR_COMPLETED:
-    return {
-      ...state,
-      todos: todos(state.todos, action),
-    }
+      return {
+        ...state,
+        todos: todos(state.todos, action),
+      }
     default:
       return state
   }
@@ -132,7 +109,7 @@ const node = (state, action) => {
 
 const getAllDescendantIds = (state, nodeId) => (
   state[nodeId].childIds.reduce((acc, childId) => (
-    [ ...acc, childId, ...getAllDescendantIds(state, childId) ]
+    [...acc, childId, ...getAllDescendantIds(state, childId)]
   ), [])
 )
 
@@ -150,7 +127,7 @@ const category = (state = {}, action) => {
 
   if (action.type === DELETE_NODE) {
     const descendantIds = getAllDescendantIds(state, nodeId)
-    return deleteMany(state, [ nodeId, ...descendantIds ])
+    return deleteMany(state, [nodeId, ...descendantIds])
   }
 
   return {
