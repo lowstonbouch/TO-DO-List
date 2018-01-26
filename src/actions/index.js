@@ -58,6 +58,11 @@ export const completeCategory = (nodeId) => ({
   nodeId,
 })
 
+export const noCompleteCategory = (nodeId) => ({
+  type: NO_COMPLETE_CATEGORY,
+  nodeId,
+})
+
 export const addTodo = (nodeId, text, completed, description) => ({ type: ADD_TODO, nodeId, text, completed, description })
 export const deleteTodo = (nodeId, id) => ({ type: DELETE_TODO, nodeId, id })
 export const editTodo = (nodeId, id, text, completed, description) => ({ type: EDIT_TODO, nodeId, id, text, completed,  description })

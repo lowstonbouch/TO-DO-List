@@ -1,6 +1,6 @@
 import {
   ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE,
-  EDIT_NODE, ADD_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_CATEGORY
+  EDIT_NODE, ADD_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_CATEGORY, NO_COMPLETE_CATEGORY
 } from '../actions'
 
 import undoable from 'redux-undo'
@@ -76,6 +76,11 @@ const node = (state, action) => {
         ...state,
         completed: !state.completed,
       }
+    case NO_COMPLETE_CATEGORY:
+      return {
+        ...state,
+        completed: false,
+    }
     case REMOVE_CHILD:
       return {
         ...state,
