@@ -12,16 +12,18 @@ export default class AddTool extends Component {
   handleSave = text => {
     if (text.length !== 0) {
         const { actions } = this.props
-        const childId = actions.createNode(text).nodeId
-        actions.addCategory(text, childId)
+        actions.createNode(text,true);
+        // actions.addCategory(text, childId)
     }
   }
 
   render() {
-        return (
-              <CategoryTextInput newTodo
-                             onSave={this.handleSave}
-                             placeholder="Enter category tittle" />
-          )
-    }
+    return (
+      <CategoryTextInput 
+        newTodo
+        onSave={this.handleSave}
+        placeholder="Enter category tittle" 
+      />
+    );
+  }
 }

@@ -15,7 +15,7 @@ import CloseChilds from 'react-icons/lib/fa/angle-down'
 import ChangeCategory from 'react-icons/lib/md/undo'
 import { Link } from 'react-router-dom';
 
-const Category = styled.div`
+const Category = styled.div `
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -38,22 +38,21 @@ min-width: 205px;
 `;
 
 const styleLink = {
-    fontSize: '20px',
-    textDecoration: 'none',
-    color: 'black',
+  fontSize: '20px',
+  textDecoration: 'none',
+  color: 'black',
 }
 
 const styleModal = {
-  
-  overlay : {
-    position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.75)'
   },
-  content : {
+  content: {
     width: '300px',
     height: '100px',
     margin: '200px auto',
@@ -72,7 +71,7 @@ justify-content: flex-end;
 
 > p {
   margin 0 3px;
-  $hover:{
+  $hover: {
     width: 120%;
     height: 120%;
   }
@@ -91,17 +90,16 @@ justify-content: space-around;
 
 
 const Element = styled.li`
-list-style-type: none;
+  list-style-type: none;
 `;
 
 const ListChild = styled.ul`
-margin: 0;
+  margin: 0;
 `;
 
 
 
 export class CategoryList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -117,9 +115,9 @@ export class CategoryList extends Component {
   }
 
   handleStateChild(){
-    this.setState(prevState => ({
+    this.setState({
       addChild: false,
-    }));
+    });
   }
 
   openModal() {
@@ -133,7 +131,6 @@ export class CategoryList extends Component {
   }
 
   handleAddChildClick = e => {
-
     e.preventDefault();
     this.setState(prevState => ({
       addChild: true,
@@ -149,9 +146,9 @@ export class CategoryList extends Component {
 
   handleRemoveClick = e => {
     e.preventDefault()
-    const { removeChild, deleteNode, parentId, id } = this.props
-    removeChild(parentId, id)
-    deleteNode(id)
+    const { removeChild, deleteNode, parentId, id } = this.props;
+    removeChild(parentId, id);
+    deleteNode(id);
     this.setState({ modalIsOpen: false });
   }
 
@@ -197,10 +194,21 @@ export class CategoryList extends Component {
   handleEditCategory = () => {
     const { actions } = this.props
     console.log(this.props);
-
     if (this.props.editTodoText.length !== 0) {
       actions.addTodo(this.props.id, this.props.editTodoText, this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].completed,this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].description)
       actions.deleteTodo(this.props.idCategory, this.props.editTodoId)
+      // let completedCount = this.state.category.present[key].todos.reduce((count, tod) =>
+      // tod.completed ? count + 1 : count,
+      // 0
+      // );
+      // // todo.completed ? completedCount -= 1 : completedCount += 1;
+      // const activeCount = category.present[key].todos.length - completedCount;
+      // if (activeCount === 0 && !category.present[key].completed) {
+      //  actions.completeCategory(key);
+      // }
+      // if (activeCount !== 0 && category.present[key].completed) {
+      //   actions.completeCategory(key);
+      // }
     }
   }
 

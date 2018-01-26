@@ -60,21 +60,8 @@ export default class EditTodo extends Component {
     }
 
     saveEdit = (idTodo) =>{
-        const { idCategory, completed, category, completeCategory} = this.props
+        const { idCategory} = this.props
         this.props.editTodo(idCategory,idTodo, this.state.text, this.state.completed, this.state.description)
-        if(completed !== this.state.completed){
-            let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
-              tod.completed ? count + 1 : count,
-              0
-            );
-            const activeCount = category.present[idCategory].todos.length - completedCount;
-            if (activeCount === 0 && !this.state.completed) {
-              completeCategory(idCategory);
-            }
-            if (activeCount !== 0 && this.state.completed) {
-              completeCategory(idCategory);
-            }
-        }
         this.props.editTodoComponent(idTodo);
         this.props.editTodoCategory();
     }

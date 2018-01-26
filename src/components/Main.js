@@ -93,7 +93,6 @@ export default class Main extends React.Component {
               <TodoSection category={category} actions={actions} idCategory={this.state.idCategory} handleAddTodoText={this.handleAddTodoText} editTodoCategory={this.editTodoCategory} editTodoComponent={this.editTodoComponent} renderEditTodo={this.state.renderEditTodo} editTodoId={this.state.editTodoId} />
             </Todos>
           </MainSections>
-       
       </Content>
       </Router>
     )

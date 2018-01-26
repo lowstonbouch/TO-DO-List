@@ -15,13 +15,11 @@ export default class CategorySection extends Component {
     category: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
   }
-
-
   render() {
     const { category, actions, editTodoText, editIdTodo, buttonEditTodo, editTodoComponent, editTodoCategory, renderEditTodo, idCategory, editTodoId } = this.props;
     let key;
     let mass = [];
-    for(key in category.present){
+    for (key in category.present) {
       mass.push(key);
     }
     return (

@@ -15,10 +15,11 @@ export const NO_COMPLETE_CATEGORY = 'NO_COMPLETE_CATEGORY'
 
 let nextId = 0
 
-export const createNode = (text) => ({
+export const createNode = (text, main) => ({
   type: CREATE_NODE,
   text: text,
-  nodeId: `new_${nextId++}`
+  nodeId: `new_${nextId++}`,
+  main
 })
 
 export const deleteNode = (nodeId) => ({

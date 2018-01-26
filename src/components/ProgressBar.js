@@ -29,10 +29,20 @@ export default class ProgressBar extends Component {
     let mass = [];
     for(key in category.present){
       mass.push(key);
+            let completedCount = this.props.category.present[key].todos.reduce((count, tod) =>
+            tod.completed ? count + 1 : count,
+            0
+            );
+            const activeCount = category.present[key].todos.length - completedCount;
+      if (activeCount === 0 && !category.present[key].completed) {
+        category.present[key].completed = !category.present[key].completed;
+      }
+      if (activeCount !== 0 && category.present[key].completed) {
+        category.present[key].completed = !category.present[key].completed;
+      }
     }
 
-      let widthBlock = 100 / mass.length;
-      console.log(widthBlock, this.props.category.present);
+      const widthBlock = 100 / mass.length;
       return (
         <MainSections>
           { mass.map(key => category.present[key].completed && <Progress key={key} style={{ width: `${widthBlock}%` }} />) }

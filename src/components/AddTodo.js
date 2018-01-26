@@ -16,7 +16,7 @@ export default class AddTodo extends Component {
     const { actions, idCategory } = this.props
     if (text.length !== 0) {
       actions.addTodo(idCategory,text, false, 'Description');
-      actions.noCompleteCategory(idCategory);
+      // actions.noCompleteCategory(idCategory);
     }
 
   }

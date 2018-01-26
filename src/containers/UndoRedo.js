@@ -33,9 +33,9 @@ const mapDispatchToProps = ({
   onRedo: UndoActionCreators.redo
 })
 
-UndoRedo = connect(
+
+
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UndoRedo)
-
-export default UndoRedo
+)(UndoRedo);

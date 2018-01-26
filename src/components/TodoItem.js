@@ -79,24 +79,6 @@ export default class TodoItem extends Component {
   }
 
 
-  handleCkick = () =>{
-        const { todo, category, actions, idCategory } = this.props;
-        let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
-        tod.completed ? count + 1 : count,
-        0
-      );
-      todo.completed ? completedCount -= 1 : completedCount += 1;
-      const activeCount = category.present[idCategory].todos.length - completedCount;
-    if (activeCount === 0 && !category.present[idCategory].completed) {
-      actions.completeCategory(idCategory);
-    }
-
-    if (activeCount !== 0 && category.present[idCategory].completed) {
-      actions.completeCategory(idCategory);
-    }
-  }
-
-
   render() {
     const { todo, category, completeTodo, idCategory } = this.props;
 
@@ -108,8 +90,7 @@ export default class TodoItem extends Component {
             <input className="toggle"
               type="checkbox"
               checked={todo.completed}
-              onChange={() => completeTodo(idCategory, todo.id)}
-              onClick={() => this.handleCkick()} />
+              onChange={() => completeTodo(idCategory, todo.id)}/>
             <p>
             {todo.text.length>=45? todo.text.slice(1,45)+'...' : todo.text}
             </p>
