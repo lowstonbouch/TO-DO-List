@@ -19,7 +19,7 @@ const Progress = styled.div`
 export default class ProgressBar extends Component {
     
     render() {
-    const { category, idCategory } = this.props
+    const { category } = this.props
 
     if(!category.present){
       return null

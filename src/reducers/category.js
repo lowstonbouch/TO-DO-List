@@ -1,7 +1,7 @@
 import {ADD_CATEGORY, ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE,
 EDIT_NODE,  ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, CLEAR_COMPLETED, COMPLETE_CATEGORY, NO_COMPLETE_CATEGORY } from '../actions'
 
-import undoable, { includeAction } from 'redux-undo'
+import undoable from 'redux-undo'
 
 const childIds = (state, action) => {
   switch (action.type) {

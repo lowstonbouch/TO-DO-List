@@ -13,7 +13,7 @@ import Edit from 'react-icons/lib/fa/edit'
 import OpenChilds from 'react-icons/lib/fa/angle-right'
 import CloseChilds from 'react-icons/lib/fa/angle-down'
 import ChangeCategory from 'react-icons/lib/md/undo'
-import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Category = styled.div`
 display: flex;
@@ -89,9 +89,6 @@ justify-content: space-around;
   `}
 `;
 
-const BlockCategory = styled.div`
-width: 100%;
-`;
 
 const Element = styled.li`
 list-style-type: none;

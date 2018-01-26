@@ -40,7 +40,7 @@ export default class TodoFooter extends Component {
   }
 
   renderTodoCount() {
-    const { activeCount, actions, idCategory } = this.props;
+    const { activeCount } = this.props;
     const itemWord = activeCount === 1 ? 'item' : 'items';
 
     return (

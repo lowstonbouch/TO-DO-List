@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import TodoTextInput from './TodoTextInput'
 import styled from 'styled-components'
-import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Edit from 'react-icons/lib/fa/edit'
 
@@ -42,9 +41,6 @@ const styleLink = {
   color: 'black',
 }
 
-const Check = styled.input`
-margin-right: 20px;
-`;
 
 export default class TodoItem extends Component {
   constructor(props) {
@@ -84,7 +80,7 @@ export default class TodoItem extends Component {
 
 
   handleCkick = () =>{
-        const { todo, completeTodo, category, actions, idCategory } = this.props;
+        const { todo, category, actions, idCategory } = this.props;
         let completedCount = category.present[idCategory].todos.reduce((count, tod) =>
         tod.completed ? count + 1 : count,
         0
@@ -102,7 +98,7 @@ export default class TodoItem extends Component {
 
 
   render() {
-    const { todo, category, completeTodo, deleteTodo, idCategory } = this.props;
+    const { todo, category, completeTodo, idCategory } = this.props;
 
     let element
       element = (

@@ -7,7 +7,7 @@ import Header from './Header'
 import ProgressBar from './ProgressBar'
 import styled from 'styled-components'
 import UndoRedo from '../containers/UndoRedo'
-import { Link, Route,  BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const Content = styled.div`
   width: 1200px;
