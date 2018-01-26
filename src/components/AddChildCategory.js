@@ -13,9 +13,9 @@ export default class AddChildCategory extends Component {
 
   handleSave = text => {
     if (text.length !== 0) {
-      const { actions, id } = this.props
+      const { actions, id} = this.props
       const childId = actions.createNode(text).nodeId
-      actions.addChild(id, childId)
+      actions.addChild(id, childId);
       this.setState({
         addChild: false,
       })

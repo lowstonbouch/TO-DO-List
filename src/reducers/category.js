@@ -102,7 +102,7 @@ const node = (state, action) => {
         ...state,
         todos: todos(state.todos, action),
       }
-      case DELETE_TODO:
+    case DELETE_TODO:
     case EDIT_TODO:
       return {
         ...state,

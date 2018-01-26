@@ -125,23 +125,23 @@ export class CategoryList extends Component {
   }
 
   closeModal() {
-    this.setState(prevState => ({
+    this.setState({
       modalIsOpen: false
-    }));
+    });
   }
 
   handleAddChildClick = e => {
     e.preventDefault();
-    this.setState(prevState => ({
+    this.setState({
       addChild: true,
-    }));
+    });
   }
 
   handleDoubleClick = e =>{
     e.preventDefault()
-    this.setState(prevState => ({
+    this.setState({
       editing: true,
-    }));
+    });
   }
 
   handleRemoveClick = e => {
@@ -164,21 +164,21 @@ export class CategoryList extends Component {
   }
 
   handleRenderChild = () => {
-    this.setState(prevState => ({
+    this.setState({
       renderChild: !this.state.renderChild 
-    }));
+    });
   }
 
   handleSave = (id, text) => {
     if(text.length !==0){
       this.props.editNode(id, text)
-      this.setState(prevState => ({
+      this.setState({
         editing: false 
-      }));
+      });
     }
-    this.setState(prevState => ({
+    this.setState({
       editing: false 
-    }));
+    });
   }
 
   handleOpenTodos = () => {
@@ -193,29 +193,16 @@ export class CategoryList extends Component {
 
   handleEditCategory = () => {
     const { actions } = this.props
-    console.log(this.props);
     if (this.props.editTodoText.length !== 0) {
       actions.addTodo(this.props.id, this.props.editTodoText, this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].completed,this.props.category.present[this.props.idCategory].todos[this.props.editTodoId].description)
       actions.deleteTodo(this.props.idCategory, this.props.editTodoId)
-      // let completedCount = this.state.category.present[key].todos.reduce((count, tod) =>
-      // tod.completed ? count + 1 : count,
-      // 0
-      // );
-      // // todo.completed ? completedCount -= 1 : completedCount += 1;
-      // const activeCount = category.present[key].todos.length - completedCount;
-      // if (activeCount === 0 && !category.present[key].completed) {
-      //  actions.completeCategory(key);
-      // }
-      // if (activeCount !== 0 && category.present[key].completed) {
-      //   actions.completeCategory(key);
-      // }
     }
   }
 
 
   render() {
     const { text, childIds, id, actions, buttonEditTodo } = this.props
-
+    console.log(childIds);
     let element
     if (this.state.editing) {
       element = (
@@ -229,7 +216,7 @@ export class CategoryList extends Component {
           <Link to={`/${text}`} style={styleLink}>
           <Category onClick={this.handleOpenTodos}>
           <div>
-            {(childIds.length > 0) &&
+            {childIds.length > 0 &&
               <p onClick={this.handleRenderChild}>
                 {this.state.renderChild &&
                   <CloseChilds />
@@ -270,7 +257,7 @@ export class CategoryList extends Component {
           </Modal>
           <ListChild>
             {this.state.addChild &&
-              <AddChildCategory actions={actions} id={id} handleStateChild={this.handleStateChild} />
+              <AddChildCategory category={this.props.category} actions={actions} id={id} handleStateChild={this.handleStateChild} />
             }
             {(childIds) && childIds.map(this.renderChild)}
           </ListChild>
